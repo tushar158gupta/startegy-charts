@@ -106,7 +106,7 @@ h1.main{font-size:1.5rem;color:#f0f0f0;margin-bottom:4px}
 </div>
 
 <script>
-const CARDS = [{"stratLabel":"Doji Hammer","version":"v1","total":236,"wins":160,"sl":75,"wr":"68.1","symCount":50,"description":"Doji→Hammer · 15/30/60min · t1=1.5R t2=2R t3=3R · CONFIRMED mode","notes":"Initial config","folder":"doji","hasCharts":false,"config":{"TIMEFRAMES":["15minute","30minute","60minute"],"LOOKBACK_CANDLES":50,"DOJI_MAX_BODY_PCT":0.25,"HAMMER_MAX_BODY_PCT":0.4,"HAMMER_MIN_LOWER_WICK_PCT":0.5,"HAMMER_MAX_UPPER_WICK_PCT":0.25,"MIN_RANGE_PCT":{"15minute":{"doji":0.15,"hammer":0.25},"30minute":{"doji":0.2,"hammer":0.35},"60minute":{"doji":0.25,"hammer":0.4}},"DEFAULT_MIN_RANGE":{"doji":0.2,"hammer":0.3},"TREND_LOOKBACK":5,"DECLINE_BY_INTERVAL":{"15minute":0.15,"30minute":0.25,"60minute":0.5},"DEFAULT_DECLINE_PCT":0.5,"REQUIRE_BULLISH_ENTRY":true,"MIN_VOLUME_MULTIPLE":1,"VOLUME_LOOKBACK":10,"TRADE_PARAMS":{"15minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":5},"30minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":6},"60minute":{"slBuffer":0.05,"t1R":2,"t2R":2.5,"t3R":3,"maxHoldCandles":5}},"MINIMUM_RISK_PTS":0,"MAX_RISK_PCT":20,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15}},{"stratLabel":"Tweezer Bottom","version":"v1","total":1040,"wins":517,"sl":449,"wr":"53.5","symCount":50,"description":"RSI 25-45 · ADX 25-35 · T1=1.5R T2=2.5R · PENDING only · 15/30/60min","notes":"1040 signals · 53.5% win rate · 2.21x R:R · +0.51% EV/trade","folder":"v1","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute","60minute"],"LOOKBACK_CANDLES":100,"LOW_TOLERANCE_PCT":0.15,"STRONG_BODY_RATIO":0.6,"NORMAL_BODY_MIN_RATIO":0.3,"MIN_CANDLE_RANGE_PCT":0.05,"REQUIRE_STRONG_C1":true,"REQUIRE_STRONG_C2":true,"TREND_LOOKBACK":20,"HTF_LOOKBACK_MULTIPLIER":4,"SWING_LOOKBACK":10,"SUPPORT_ZONE_PCT":0.25,"ATR_PERIOD":14,"ATR_MIN_THRESHOLD_PCT":0.3,"ADX_PERIOD":14,"ADX_THRESHOLD":25,"ADX_MAX":35,"RSI_PERIOD":14,"RSI_MIN":25,"RSI_MAX":45,"VOLUME_MA_PERIOD":20,"BREAKOUT_BUFFER_PCT":0,"SL_BUFFER_PCT":0.1,"MIN_RISK_PCT":0.5,"MAX_RISK_PCT":1.5,"T1_RR":1.5,"T2_RR":2.5,"MIN_RR_RATIO":1.5,"TRAILING_ACTIVATION_RR":1,"TRAILING_STOP_PCT":0.5,"PARTIAL_BOOKING_RR":2,"PARTIAL_BOOKING_PCT":50,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15,"SKIP_CONFIRMED":true}},{"stratLabel":"Tweezer Bottom","version":"v2","total":198,"wins":85,"sl":89,"wr":"48.9","symCount":49,"description":"RSI 25-40 · ADX 25-50 · T1=2R T2=3R · PENDING+CONFIRMED · 15/30min","notes":"Higher targets, wider ADX band, stricter risk floor (1% min), normal C1 allowed","folder":"v2","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute"],"LOOKBACK_CANDLES":100,"LOW_TOLERANCE_PCT":0.15,"STRONG_BODY_RATIO":0.6,"NORMAL_BODY_MIN_RATIO":0.3,"MIN_CANDLE_RANGE_PCT":0.05,"REQUIRE_STRONG_C2":true,"TREND_LOOKBACK":20,"HTF_LOOKBACK_MULTIPLIER":4,"SWING_LOOKBACK":10,"SUPPORT_ZONE_PCT":0.5,"ATR_PERIOD":14,"ATR_MIN_THRESHOLD_PCT":0.3,"ADX_PERIOD":14,"ADX_THRESHOLD":25,"ADX_MAX":50,"RSI_PERIOD":14,"RSI_MIN":25,"RSI_MAX":40,"VOLUME_MA_PERIOD":20,"BREAKOUT_BUFFER_PCT":0,"SL_BUFFER_PCT":0.1,"MIN_RISK_PCT":1,"MAX_RISK_PCT":1.5,"T1_RR":2,"T2_RR":3,"MIN_RR_RATIO":1.5,"TRAILING_ACTIVATION_RR":1.5,"TRAILING_STOP_PCT":0.5,"PARTIAL_BOOKING_RR":2,"PARTIAL_BOOKING_PCT":50,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15}}];
+const CARDS = [{"stratLabel":"Doji Hammer","version":"v1","total":236,"wins":160,"sl":75,"wr":"68.1","symCount":50,"description":"Doji→Hammer · 15/30/60min · t1=1.5R t2=2R t3=3R · CONFIRMED mode","notes":"Initial config","folder":"dojiHammer_v1","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute","60minute"],"LOOKBACK_CANDLES":50,"DOJI_MAX_BODY_PCT":0.25,"HAMMER_MAX_BODY_PCT":0.4,"HAMMER_MIN_LOWER_WICK_PCT":0.5,"HAMMER_MAX_UPPER_WICK_PCT":0.25,"MIN_RANGE_PCT":{"15minute":{"doji":0.15,"hammer":0.25},"30minute":{"doji":0.2,"hammer":0.35},"60minute":{"doji":0.25,"hammer":0.4}},"DEFAULT_MIN_RANGE":{"doji":0.2,"hammer":0.3},"TREND_LOOKBACK":5,"DECLINE_BY_INTERVAL":{"15minute":0.15,"30minute":0.25,"60minute":0.5},"DEFAULT_DECLINE_PCT":0.5,"REQUIRE_BULLISH_ENTRY":true,"MIN_VOLUME_MULTIPLE":1,"VOLUME_LOOKBACK":10,"TRADE_PARAMS":{"15minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":5},"30minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":6},"60minute":{"slBuffer":0.05,"t1R":2,"t2R":2.5,"t3R":3,"maxHoldCandles":5}},"MINIMUM_RISK_PTS":0,"MAX_RISK_PCT":20,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15}},{"stratLabel":"Tweezer Bottom","version":"v1","total":1040,"wins":517,"sl":449,"wr":"53.5","symCount":50,"description":"RSI 25-45 · ADX 25-35 · T1=1.5R T2=2.5R · PENDING only · 15/30/60min","notes":"1040 signals · 53.5% win rate · 2.21x R:R · +0.51% EV/trade","folder":"tweezerBottom_v1","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute","60minute"],"LOOKBACK_CANDLES":100,"LOW_TOLERANCE_PCT":0.15,"STRONG_BODY_RATIO":0.6,"NORMAL_BODY_MIN_RATIO":0.3,"MIN_CANDLE_RANGE_PCT":0.05,"REQUIRE_STRONG_C1":true,"REQUIRE_STRONG_C2":true,"TREND_LOOKBACK":20,"HTF_LOOKBACK_MULTIPLIER":4,"SWING_LOOKBACK":10,"SUPPORT_ZONE_PCT":0.25,"ATR_PERIOD":14,"ATR_MIN_THRESHOLD_PCT":0.3,"ADX_PERIOD":14,"ADX_THRESHOLD":25,"ADX_MAX":35,"RSI_PERIOD":14,"RSI_MIN":25,"RSI_MAX":45,"VOLUME_MA_PERIOD":20,"BREAKOUT_BUFFER_PCT":0,"SL_BUFFER_PCT":0.1,"MIN_RISK_PCT":0.5,"MAX_RISK_PCT":1.5,"T1_RR":1.5,"T2_RR":2.5,"MIN_RR_RATIO":1.5,"TRAILING_ACTIVATION_RR":1,"TRAILING_STOP_PCT":0.5,"PARTIAL_BOOKING_RR":2,"PARTIAL_BOOKING_PCT":50,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15,"SKIP_CONFIRMED":true}},{"stratLabel":"Tweezer Bottom","version":"v2","total":198,"wins":85,"sl":89,"wr":"48.9","symCount":49,"description":"RSI 25-40 · ADX 25-50 · T1=2R T2=3R · PENDING+CONFIRMED · 15/30min","notes":"Higher targets, wider ADX band, stricter risk floor (1% min), normal C1 allowed","folder":"tweezerBottom_v2","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute"],"LOOKBACK_CANDLES":100,"LOW_TOLERANCE_PCT":0.15,"STRONG_BODY_RATIO":0.6,"NORMAL_BODY_MIN_RATIO":0.3,"MIN_CANDLE_RANGE_PCT":0.05,"REQUIRE_STRONG_C2":true,"TREND_LOOKBACK":20,"HTF_LOOKBACK_MULTIPLIER":4,"SWING_LOOKBACK":10,"SUPPORT_ZONE_PCT":0.5,"ATR_PERIOD":14,"ATR_MIN_THRESHOLD_PCT":0.3,"ADX_PERIOD":14,"ADX_THRESHOLD":25,"ADX_MAX":50,"RSI_PERIOD":14,"RSI_MIN":25,"RSI_MAX":40,"VOLUME_MA_PERIOD":20,"BREAKOUT_BUFFER_PCT":0,"SL_BUFFER_PCT":0.1,"MIN_RISK_PCT":1,"MAX_RISK_PCT":1.5,"T1_RR":2,"T2_RR":3,"MIN_RR_RATIO":1.5,"TRAILING_ACTIVATION_RR":1.5,"TRAILING_STOP_PCT":0.5,"PARTIAL_BOOKING_RR":2,"PARTIAL_BOOKING_PCT":50,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15}}];
 
 function goHome() {
   document.getElementById('screen-detail').style.display = 'none';
@@ -120,14 +120,12 @@ function openCard(i) {
   document.getElementById('screen-detail').style.display = 'block';
   window.scrollTo(0, 0);
 
-  // Header
   const badge = c.version ? '<span class="vbadge">' + c.version + '</span>' : '';
   document.getElementById('d-head').innerHTML =
     '<h1>' + c.stratLabel + ' ' + badge + '</h1>' +
     (c.description ? '<div class="ddesc">' + c.description + '</div>' : '') +
     (c.notes       ? '<div class="dnotes">' + c.notes + '</div>'       : '');
 
-  // Stats
   const wrf  = parseFloat(c.wr);
   const wrc  = wrf >= 60 ? '#00cc55' : wrf >= 50 ? '#ffc107' : '#ff4444';
   const wrbg = wrf >= 60 ? '#071a0f' : wrf >= 50 ? '#1a1500' : '#1a0707';
@@ -138,11 +136,9 @@ function openCard(i) {
     sbar(c.wins, 'Wins',    '#00cc55') +
     sbar(c.sl,   'SL Hits', '#ff4444');
 
-  // Config body
   document.getElementById('d-body').innerHTML =
     c.config ? renderConfig(c.config) : '<p style="color:#555;padding:16px 0">No config available</p>';
 
-  // CTA
   const cta = document.getElementById('d-cta');
   if (c.hasCharts) {
     cta.href = c.folder + '/index.html';
@@ -194,7 +190,7 @@ function renderConfig(cfg) {
   if (cfg.T2_RR) r3.push(row('T2', cfg.T2_RR + 'R'));
   if (cfg.T3_RR) r3.push(row('T3', cfg.T3_RR + 'R'));
   if (cfg.TRAILING_ACTIVATION_RR) r3.push(row('Trailing activates', 'after ' + cfg.TRAILING_ACTIVATION_RR + 'R'));
-  if (cfg.TRAILING_STOP_PCT)      r3.push(row('Trailing step',      cfg.TRAILING_STOP_PCT + '%'));
+  if (cfg.TRAILING_STOP_PCT)      r3.push(row('Trailing step', cfg.TRAILING_STOP_PCT + '%'));
   if (cfg.PARTIAL_BOOKING_PCT && cfg.PARTIAL_BOOKING_RR)
     r3.push(row('Partial exit', cfg.PARTIAL_BOOKING_PCT + '% of position at ' + cfg.PARTIAL_BOOKING_RR + 'R'));
   if (cfg.MIN_RR_RATIO) r3.push(row('Min R:R to accept trade', cfg.MIN_RR_RATIO + 'R'));
