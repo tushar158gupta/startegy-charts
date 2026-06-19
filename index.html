@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Backtest Dashboard</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#0b0b0f;color:#ddd;min-height:100vh}
+
+/* ── Home screen ── */
+#screen-home{padding:30px}
+h1.main{font-size:1.5rem;color:#f0f0f0;margin-bottom:4px}
+.sub{color:#555;font-size:.85rem;display:block;margin-top:4px;margin-bottom:24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.card{background:#13131f;border:1px solid #222;border-radius:12px;padding:18px 20px;
+  cursor:pointer;color:#ddd;display:block;user-select:none;
+  transition:border-color .15s,background .15s,transform .12s}
+.card:hover{border-color:#4da6ff;background:#161625;transform:translateY(-2px)}
+.chead{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.cname{font-size:1.1rem;font-weight:700;color:#f0f0f0}
+.vbadge{background:#1a1a3a;border:1px solid #3a3a6a;color:#7a9fff;font-size:.72rem;padding:2px 8px;border-radius:10px}
+.cdesc{color:#888;font-size:.77rem;margin-bottom:10px;line-height:1.45}
+.cstats{display:flex;gap:16px;margin:10px 0}
+.cs{display:flex;flex-direction:column;gap:3px}
+.cv{font-size:1.1rem;font-weight:700}
+.cl{font-size:.68rem;color:#555}
+.cnotes{color:#555;font-size:.72rem;margin-top:8px;padding-top:8px;border-top:1px solid #1a1a2a;line-height:1.4}
+.nocharts{color:#888;font-size:.72rem;margin-top:8px;background:#111;border:1px solid #1a1a1a;border-radius:4px;padding:5px 8px;font-family:monospace}
+
+/* ── Detail screen ── */
+#screen-detail{display:none;padding:24px 30px;max-width:980px;margin:0 auto}
+.back-btn{background:none;border:none;color:#4da6ff;cursor:pointer;font-size:.85rem;
+  padding:0;margin-bottom:20px;display:inline-flex;align-items:center;gap:5px}
+.back-btn:hover{text-decoration:underline;color:#7abfff}
+.dhead{margin-bottom:20px}
+.dhead h1{font-size:1.55rem;color:#f0f0f0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.ddesc{color:#aaa;margin-top:8px;font-size:.9rem;line-height:1.5}
+.dnotes{color:#4da6ff;margin-top:8px;font-size:.82rem;
+  background:#0d1a2a;border:1px solid #1a3a5a;border-radius:6px;
+  padding:7px 12px;display:inline-block}
+.stats-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+.sbar{background:#13131f;border:1px solid #222;border-radius:8px;padding:10px 18px;text-align:center;min-width:88px}
+.sbar .sv{font-size:1.35rem;font-weight:700}
+.sbar .sl2{font-size:.7rem;color:#555;margin-top:2px}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;margin-bottom:28px}
+.info-section{background:#13131f;border:1px solid #1e1e2e;border-radius:10px;overflow:hidden}
+.info-title{background:#16162a;color:#7a9fff;font-size:.7rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;padding:8px 14px;border-bottom:1px solid #1e1e2e}
+.info-rows{padding:4px 0}
+.info-row{display:flex;justify-content:space-between;align-items:baseline;padding:6px 14px;gap:14px}
+.info-row:hover{background:rgba(255,255,255,.025)}
+.ik{color:#666;font-size:.76rem;white-space:nowrap;flex-shrink:0}
+.iv{color:#ddd;font-size:.8rem;text-align:right}
+.cta-bar{display:flex;justify-content:flex-end;padding-top:4px;padding-bottom:30px}
+.cta-btn{display:inline-block;background:#1a3a6a;border:1px solid #2a5aaa;
+  color:#7abfff;padding:13px 36px;border-radius:8px;text-decoration:none;
+  font-size:1.05rem;font-weight:600;letter-spacing:.02em;
+  transition:background .15s,color .15s}
+.cta-btn:hover{background:#2a5aaa;color:#fff}
+.cta-btn.disabled{opacity:.35;pointer-events:none;cursor:default}
+</style>
+</head>
+<body>
+
+<!-- ── Home ── -->
+<div id="screen-home">
+  <h1 class="main">Backtest Dashboard</h1>
+  <span class="sub">Click a strategy to see details · 3 results found</span>
+  <div class="grid"><div class="card" onclick="openCard(0)">
+      <div class="chead"><span class="cname">Doji Hammer</span><span class="vbadge">v1</span></div>
+      <div class="cdesc">Doji→Hammer · 15/30/60min · t1=1.5R t2=2R t3=3R · CONFIRMED mode</div>
+      <div class="cstats">
+        <div class="cs"><div class="cv">236</div><div class="cl">Signals</div></div>
+        <div class="cs"><div class="cv">50</div><div class="cl">Symbols</div></div>
+        <div class="cs"><div class="cv" style="color:#00cc55;background:#071a0f;padding:2px 7px;border-radius:5px">68.1%</div><div class="cl">Win Rate</div></div>
+      </div>
+      <div class="cnotes">Initial config</div>
+    </div><div class="card" onclick="openCard(1)">
+      <div class="chead"><span class="cname">Tweezer Bottom</span><span class="vbadge">v1</span></div>
+      <div class="cdesc">RSI 25-45 · ADX 25-35 · T1=1.5R T2=2.5R · PENDING only · 15/30/60min</div>
+      <div class="cstats">
+        <div class="cs"><div class="cv">1040</div><div class="cl">Signals</div></div>
+        <div class="cs"><div class="cv">50</div><div class="cl">Symbols</div></div>
+        <div class="cs"><div class="cv" style="color:#ffc107;background:#1a1500;padding:2px 7px;border-radius:5px">53.5%</div><div class="cl">Win Rate</div></div>
+      </div>
+      <div class="cnotes">1040 signals · 53.5% win rate · 2.21x R:R · +0.51% EV/trade</div>
+    </div><div class="card" onclick="openCard(2)">
+      <div class="chead"><span class="cname">Tweezer Bottom</span><span class="vbadge">v2</span></div>
+      <div class="cdesc">RSI 25-40 · ADX 25-50 · T1=2R T2=3R · PENDING+CONFIRMED · 15/30min</div>
+      <div class="cstats">
+        <div class="cs"><div class="cv">198</div><div class="cl">Signals</div></div>
+        <div class="cs"><div class="cv">49</div><div class="cl">Symbols</div></div>
+        <div class="cs"><div class="cv" style="color:#ff4444;background:#1a0707;padding:2px 7px;border-radius:5px">48.9%</div><div class="cl">Win Rate</div></div>
+      </div>
+      <div class="cnotes">Higher targets, wider ADX band, stricter risk floor (1% min), normal C1 allowed</div>
+    </div></div>
+</div>
+
+<!-- ── Detail ── -->
+<div id="screen-detail">
+  <button class="back-btn" onclick="goHome()">&#8592; Back to Dashboard</button>
+  <div id="d-head" class="dhead"></div>
+  <div id="d-stats" class="stats-bar"></div>
+  <div id="d-body"></div>
+  <div class="cta-bar"><a id="d-cta" class="cta-btn" href="#">View Stocks &#8594;</a></div>
+</div>
+
+<script>
+const CARDS = [{"stratLabel":"Doji Hammer","version":"v1","total":236,"wins":160,"sl":75,"wr":"68.1","symCount":50,"description":"Doji→Hammer · 15/30/60min · t1=1.5R t2=2R t3=3R · CONFIRMED mode","notes":"Initial config","folder":"v1","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute","60minute"],"LOOKBACK_CANDLES":50,"DOJI_MAX_BODY_PCT":0.25,"HAMMER_MAX_BODY_PCT":0.4,"HAMMER_MIN_LOWER_WICK_PCT":0.5,"HAMMER_MAX_UPPER_WICK_PCT":0.25,"MIN_RANGE_PCT":{"15minute":{"doji":0.15,"hammer":0.25},"30minute":{"doji":0.2,"hammer":0.35},"60minute":{"doji":0.25,"hammer":0.4}},"DEFAULT_MIN_RANGE":{"doji":0.2,"hammer":0.3},"TREND_LOOKBACK":5,"DECLINE_BY_INTERVAL":{"15minute":0.15,"30minute":0.25,"60minute":0.5},"DEFAULT_DECLINE_PCT":0.5,"REQUIRE_BULLISH_ENTRY":true,"MIN_VOLUME_MULTIPLE":1,"VOLUME_LOOKBACK":10,"TRADE_PARAMS":{"15minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":5},"30minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":6},"60minute":{"slBuffer":0.05,"t1R":2,"t2R":2.5,"t3R":3,"maxHoldCandles":5}},"MINIMUM_RISK_PTS":0,"MAX_RISK_PCT":20,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15}},{"stratLabel":"Tweezer Bottom","version":"v1","total":1040,"wins":517,"sl":449,"wr":"53.5","symCount":50,"description":"RSI 25-45 · ADX 25-35 · T1=1.5R T2=2.5R · PENDING only · 15/30/60min","notes":"1040 signals · 53.5% win rate · 2.21x R:R · +0.51% EV/trade","folder":"v1","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute","60minute"],"LOOKBACK_CANDLES":100,"LOW_TOLERANCE_PCT":0.15,"STRONG_BODY_RATIO":0.6,"NORMAL_BODY_MIN_RATIO":0.3,"MIN_CANDLE_RANGE_PCT":0.05,"REQUIRE_STRONG_C1":true,"REQUIRE_STRONG_C2":true,"TREND_LOOKBACK":20,"HTF_LOOKBACK_MULTIPLIER":4,"SWING_LOOKBACK":10,"SUPPORT_ZONE_PCT":0.25,"ATR_PERIOD":14,"ATR_MIN_THRESHOLD_PCT":0.3,"ADX_PERIOD":14,"ADX_THRESHOLD":25,"ADX_MAX":35,"RSI_PERIOD":14,"RSI_MIN":25,"RSI_MAX":45,"VOLUME_MA_PERIOD":20,"BREAKOUT_BUFFER_PCT":0,"SL_BUFFER_PCT":0.1,"MIN_RISK_PCT":0.5,"MAX_RISK_PCT":1.5,"T1_RR":1.5,"T2_RR":2.5,"MIN_RR_RATIO":1.5,"TRAILING_ACTIVATION_RR":1,"TRAILING_STOP_PCT":0.5,"PARTIAL_BOOKING_RR":2,"PARTIAL_BOOKING_PCT":50,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15,"SKIP_CONFIRMED":true}},{"stratLabel":"Tweezer Bottom","version":"v2","total":198,"wins":85,"sl":89,"wr":"48.9","symCount":49,"description":"RSI 25-40 · ADX 25-50 · T1=2R T2=3R · PENDING+CONFIRMED · 15/30min","notes":"Higher targets, wider ADX band, stricter risk floor (1% min), normal C1 allowed","folder":"v2","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute"],"LOOKBACK_CANDLES":100,"LOW_TOLERANCE_PCT":0.15,"STRONG_BODY_RATIO":0.6,"NORMAL_BODY_MIN_RATIO":0.3,"MIN_CANDLE_RANGE_PCT":0.05,"REQUIRE_STRONG_C2":true,"TREND_LOOKBACK":20,"HTF_LOOKBACK_MULTIPLIER":4,"SWING_LOOKBACK":10,"SUPPORT_ZONE_PCT":0.5,"ATR_PERIOD":14,"ATR_MIN_THRESHOLD_PCT":0.3,"ADX_PERIOD":14,"ADX_THRESHOLD":25,"ADX_MAX":50,"RSI_PERIOD":14,"RSI_MIN":25,"RSI_MAX":40,"VOLUME_MA_PERIOD":20,"BREAKOUT_BUFFER_PCT":0,"SL_BUFFER_PCT":0.1,"MIN_RISK_PCT":1,"MAX_RISK_PCT":1.5,"T1_RR":2,"T2_RR":3,"MIN_RR_RATIO":1.5,"TRAILING_ACTIVATION_RR":1.5,"TRAILING_STOP_PCT":0.5,"PARTIAL_BOOKING_RR":2,"PARTIAL_BOOKING_PCT":50,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15}}];
+
+function goHome() {
+  document.getElementById('screen-detail').style.display = 'none';
+  document.getElementById('screen-home').style.display   = '';
+  window.scrollTo(0, 0);
+}
+
+function openCard(i) {
+  const c = CARDS[i];
+  document.getElementById('screen-home').style.display   = 'none';
+  document.getElementById('screen-detail').style.display = 'block';
+  window.scrollTo(0, 0);
+
+  // Header
+  const badge = c.version ? '<span class="vbadge">' + c.version + '</span>' : '';
+  document.getElementById('d-head').innerHTML =
+    '<h1>' + c.stratLabel + ' ' + badge + '</h1>' +
+    (c.description ? '<div class="ddesc">' + c.description + '</div>' : '') +
+    (c.notes       ? '<div class="dnotes">' + c.notes + '</div>'       : '');
+
+  // Stats
+  const wrf  = parseFloat(c.wr);
+  const wrc  = wrf >= 60 ? '#00cc55' : wrf >= 50 ? '#ffc107' : '#ff4444';
+  const wrbg = wrf >= 60 ? '#071a0f' : wrf >= 50 ? '#1a1500' : '#1a0707';
+  document.getElementById('d-stats').innerHTML =
+    sbar(c.total,   'Signals') +
+    sbar(c.symCount,'Symbols') +
+    '<div class="sbar"><div class="sv" style="color:' + wrc + ';background:' + wrbg + ';padding:3px 10px;border-radius:6px">' + c.wr + '%</div><div class="sl2">Win Rate</div></div>' +
+    sbar(c.wins, 'Wins',    '#00cc55') +
+    sbar(c.sl,   'SL Hits', '#ff4444');
+
+  // Config body
+  document.getElementById('d-body').innerHTML =
+    c.config ? renderConfig(c.config) : '<p style="color:#555;padding:16px 0">No config available</p>';
+
+  // CTA
+  const cta = document.getElementById('d-cta');
+  if (c.hasCharts) {
+    cta.href = c.folder + '/index.html';
+    cta.textContent = 'View Stocks →';
+    cta.classList.remove('disabled');
+  } else {
+    cta.href = '#';
+    cta.textContent = 'Charts not generated yet';
+    cta.classList.add('disabled');
+  }
+}
+
+function sbar(v, label, col) {
+  return '<div class="sbar"><div class="sv"' + (col ? ' style="color:' + col + '"' : '') + '>' + v + '</div><div class="sl2">' + label + '</div></div>';
+}
+function row(k, v) {
+  return '<div class="info-row"><span class="ik">' + k + '</span><span class="iv">' + v + '</span></div>';
+}
+function section(title, rows) {
+  if (!rows.length) return '';
+  return '<div class="info-section"><div class="info-title">' + title + '</div><div class="info-rows">' + rows.join('') + '</div></div>';
+}
+
+function renderConfig(cfg) {
+  const sections = [];
+
+  // ── Entry ────────────────────────────────────────────────────────────────────
+  const r1 = [];
+  if (cfg.TIMEFRAMES && cfg.TIMEFRAMES.length)
+    r1.push(row('Timeframes', cfg.TIMEFRAMES.map(function(t){ return t.replace('minute',' min'); }).join(' · ')));
+  var mode = 'PENDING + CONFIRMED';
+  if (cfg.SKIP_CONFIRMED === true)    mode = 'PENDING only — buy-stop above C3 high';
+  else if (cfg.REQUIRE_BULLISH_ENTRY) mode = 'CONFIRMED — entry at open of bullish C3';
+  r1.push(row('Signal mode', mode));
+  if (cfg.BREAKOUT_BUFFER_PCT !== undefined) r1.push(row('Breakout buffer', cfg.BREAKOUT_BUFFER_PCT + '%'));
+  if (cfg.EOD_CUTOFF_HOUR) r1.push(row('EOD cutoff', 'No new signals after ' + cfg.EOD_CUTOFF_HOUR + ':00'));
+  sections.push(section('Entry', r1));
+
+  // ── Stop Loss ────────────────────────────────────────────────────────────────
+  const r2 = [];
+  if (cfg.SL_BUFFER_PCT !== undefined) r2.push(row('SL buffer', cfg.SL_BUFFER_PCT + '% of range below pattern low'));
+  if (cfg.MIN_RISK_PCT  !== undefined) r2.push(row('Min risk',  cfg.MIN_RISK_PCT  + '% per trade'));
+  if (cfg.MAX_RISK_PCT  !== undefined) r2.push(row('Max risk',  cfg.MAX_RISK_PCT  + '% per trade'));
+  sections.push(section('Stop Loss', r2));
+
+  // ── Targets ──────────────────────────────────────────────────────────────────
+  const r3 = [];
+  if (cfg.T1_RR) r3.push(row('T1', cfg.T1_RR + 'R'));
+  if (cfg.T2_RR) r3.push(row('T2', cfg.T2_RR + 'R'));
+  if (cfg.T3_RR) r3.push(row('T3', cfg.T3_RR + 'R'));
+  if (cfg.TRAILING_ACTIVATION_RR) r3.push(row('Trailing activates', 'after ' + cfg.TRAILING_ACTIVATION_RR + 'R'));
+  if (cfg.TRAILING_STOP_PCT)      r3.push(row('Trailing step',      cfg.TRAILING_STOP_PCT + '%'));
+  if (cfg.PARTIAL_BOOKING_PCT && cfg.PARTIAL_BOOKING_RR)
+    r3.push(row('Partial exit', cfg.PARTIAL_BOOKING_PCT + '% of position at ' + cfg.PARTIAL_BOOKING_RR + 'R'));
+  if (cfg.MIN_RR_RATIO) r3.push(row('Min R:R to accept trade', cfg.MIN_RR_RATIO + 'R'));
+  if (cfg.TRADE_PARAMS) {
+    Object.keys(cfg.TRADE_PARAMS).forEach(function(tf) {
+      var p   = cfg.TRADE_PARAMS[tf];
+      var lbl = tf.replace('minute',' min');
+      var tgts = [
+        ('t1R' in p) && ('T1=' + p.t1R + 'R'),
+        ('t2R' in p) && ('T2=' + p.t2R + 'R'),
+        ('t3R' in p) && ('T3=' + p.t3R + 'R'),
+      ].filter(Boolean).join(' · ');
+      r3.push(row(lbl,
+        tgts +
+        (p.maxHoldCandles ? ' · max ' + p.maxHoldCandles + ' candles' : '') +
+        (p.slBuffer ? ' · SL buf ' + (p.slBuffer * 100) + '%' : '')
+      ));
+    });
+  }
+  sections.push(section('Targets', r3));
+
+  // ── Filters ──────────────────────────────────────────────────────────────────
+  const r4 = [];
+  if (cfg.RSI_MIN !== undefined && cfg.RSI_MAX !== undefined)
+    r4.push(row('RSI', cfg.RSI_MIN + ' – ' + cfg.RSI_MAX + ' (period ' + cfg.RSI_PERIOD + ')'));
+  if (cfg.ADX_THRESHOLD !== undefined) {
+    var adxStr = cfg.ADX_MAX !== undefined
+      ? cfg.ADX_THRESHOLD + ' – ' + cfg.ADX_MAX
+      : '≥ ' + cfg.ADX_THRESHOLD;
+    r4.push(row('ADX', adxStr + ' (period ' + cfg.ADX_PERIOD + ')'));
+  }
+  if (cfg.ATR_MIN_THRESHOLD_PCT !== undefined) r4.push(row('ATR min', cfg.ATR_MIN_THRESHOLD_PCT + '% of price'));
+  if (cfg.SUPPORT_ZONE_PCT !== undefined) r4.push(row('Support zone', '±' + cfg.SUPPORT_ZONE_PCT + '% around swing low'));
+  if (cfg.VOLUME_MA_PERIOD !== undefined) r4.push(row('Volume MA', cfg.VOLUME_MA_PERIOD + '-candle average'));
+  if (cfg.MIN_VOLUME_MULTIPLE)            r4.push(row('Volume filter', '≥ ' + cfg.MIN_VOLUME_MULTIPLE + '× average'));
+  if (cfg.SWING_LOOKBACK !== undefined)   r4.push(row('Swing lookback', cfg.SWING_LOOKBACK + ' candles'));
+  if (cfg.TREND_LOOKBACK !== undefined && !cfg.DECLINE_BY_INTERVAL)
+    r4.push(row('Trend lookback', cfg.TREND_LOOKBACK + ' candles'));
+  if (cfg.DECLINE_BY_INTERVAL) {
+    Object.keys(cfg.DECLINE_BY_INTERVAL).forEach(function(tf) {
+      r4.push(row(
+        'Prior decline (' + tf.replace('minute',' min') + ')',
+        '≥ ' + cfg.DECLINE_BY_INTERVAL[tf] + '% over ' + cfg.TREND_LOOKBACK + ' candles'
+      ));
+    });
+  }
+  sections.push(section('Filters', r4));
+
+  // ── Pattern ──────────────────────────────────────────────────────────────────
+  const r5 = [];
+  if (cfg.LOW_TOLERANCE_PCT !== undefined)
+    r5.push(row('Low tolerance', cfg.LOW_TOLERANCE_PCT + '% (how equal the two lows must be)'));
+  if (cfg.STRONG_BODY_RATIO !== undefined)
+    r5.push(row('Strong body', '≥ ' + (cfg.STRONG_BODY_RATIO * 100) + '% of candle range'));
+  if (cfg.NORMAL_BODY_MIN_RATIO !== undefined)
+    r5.push(row('Normal body min', '≥ ' + (cfg.NORMAL_BODY_MIN_RATIO * 100) + '% of range'));
+  if (cfg.MIN_CANDLE_RANGE_PCT !== undefined)
+    r5.push(row('Min candle size', cfg.MIN_CANDLE_RANGE_PCT + '% of price'));
+  if (cfg.REQUIRE_STRONG_C1 !== undefined)
+    r5.push(row('C1 body', cfg.REQUIRE_STRONG_C1 ? 'Must be strong (≥60%)' : 'Normal body accepted'));
+  if (cfg.REQUIRE_STRONG_C2 !== undefined)
+    r5.push(row('C2 body', cfg.REQUIRE_STRONG_C2 ? 'Must be strong (≥60%)' : 'Normal body accepted'));
+  if (cfg.DOJI_MAX_BODY_PCT !== undefined)
+    r5.push(row('Doji max body', '≤ ' + (cfg.DOJI_MAX_BODY_PCT * 100) + '% of range'));
+  if (cfg.HAMMER_MAX_BODY_PCT !== undefined)
+    r5.push(row('Hammer max body', '≤ ' + (cfg.HAMMER_MAX_BODY_PCT * 100) + '% of range'));
+  if (cfg.HAMMER_MIN_LOWER_WICK_PCT !== undefined)
+    r5.push(row('Hammer lower wick', '≥ ' + (cfg.HAMMER_MIN_LOWER_WICK_PCT * 100) + '% of range'));
+  if (cfg.HAMMER_MAX_UPPER_WICK_PCT !== undefined)
+    r5.push(row('Hammer upper wick', '≤ ' + (cfg.HAMMER_MAX_UPPER_WICK_PCT * 100) + '% of range'));
+  if (cfg.MIN_RANGE_PCT && typeof cfg.MIN_RANGE_PCT === 'object' && !Array.isArray(cfg.MIN_RANGE_PCT)) {
+    Object.keys(cfg.MIN_RANGE_PCT).forEach(function(tf) {
+      var v = cfg.MIN_RANGE_PCT[tf];
+      r5.push(row('Min size (' + tf.replace('minute',' min') + ')', 'Doji ≥ ' + v.doji + '%, Hammer ≥ ' + v.hammer + '%'));
+    });
+  }
+  sections.push(section('Pattern', r5));
+
+  return '<div class="info-grid">' + sections.filter(Boolean).join('') + '</div>';
+}
+</script>
+</body>
+</html>
