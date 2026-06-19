@@ -28,37 +28,37 @@ h1.main{font-size:1.5rem;color:#f0f0f0;margin-bottom:4px}
 .nocharts{color:#888;font-size:.72rem;margin-top:8px;background:#111;border:1px solid #1a1a1a;border-radius:4px;padding:5px 8px;font-family:monospace}
 
 /* ── Detail screen ── */
-#screen-detail{display:none;padding:24px 30px;max-width:980px;margin:0 auto}
-.back-btn{background:none;border:none;color:#4da6ff;cursor:pointer;font-size:.85rem;
-  padding:0;margin-bottom:20px;display:inline-flex;align-items:center;gap:5px}
-.back-btn:hover{text-decoration:underline;color:#7abfff}
-.dhead{margin-bottom:20px}
-.dhead h1{font-size:1.55rem;color:#f0f0f0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.ddesc{color:#aaa;margin-top:8px;font-size:.9rem;line-height:1.5}
-.dnotes{color:#4da6ff;margin-top:8px;font-size:.82rem;
-  background:#0d1a2a;border:1px solid #1a3a5a;border-radius:6px;
-  padding:7px 12px;display:inline-block}
-.stats-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
-.sbar{background:#13131f;border:1px solid #222;border-radius:8px;padding:10px 18px;text-align:center;min-width:88px}
-.sbar .sv{font-size:1.35rem;font-weight:700}
-.sbar .sl2{font-size:.7rem;color:#555;margin-top:2px}
-.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;margin-bottom:28px}
-.info-section{background:#13131f;border:1px solid #1e1e2e;border-radius:10px;overflow:hidden}
-.info-title{background:#16162a;color:#7a9fff;font-size:.7rem;font-weight:700;
-  letter-spacing:.08em;text-transform:uppercase;padding:8px 14px;border-bottom:1px solid #1e1e2e}
-.info-rows{padding:4px 0}
-.info-row{display:flex;justify-content:space-between;align-items:baseline;padding:6px 14px;gap:14px}
-.info-row:hover{background:rgba(255,255,255,.025)}
-.ik{color:#666;font-size:.76rem;white-space:nowrap;flex-shrink:0}
-.iv{color:#ddd;font-size:.8rem;text-align:right}
-.drange{color:#666;font-size:.8rem;margin-top:6px}
-.cta-bar{display:flex;justify-content:flex-end;padding-top:4px;padding-bottom:30px}
-.cta-btn{display:inline-block;background:#1a3a6a;border:1px solid #2a5aaa;
-  color:#7abfff;padding:13px 36px;border-radius:8px;text-decoration:none;
-  font-size:1.05rem;font-weight:600;letter-spacing:.02em;
-  transition:background .15s,color .15s}
-.cta-btn:hover{background:#2a5aaa;color:#fff}
-.cta-btn.disabled{opacity:.35;pointer-events:none;cursor:default}
+#screen-detail{display:none;padding:20px 24px 48px;max-width:960px;margin:0 auto}
+.back-btn{background:none;border:none;color:#4da6ff;cursor:pointer;font-size:.82rem;
+  padding:0;margin-bottom:14px;display:inline-flex;align-items:center;gap:5px}
+.back-btn:hover{color:#7abfff;text-decoration:underline}
+.dcard{background:#13131f;border:1px solid #222;border-radius:14px;padding:20px 24px;margin-bottom:18px}
+.dcard-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
+.dhead h1{font-size:1.5rem;color:#f0f0f0;font-weight:700;display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;line-height:1.2}
+.ddesc{color:#777;margin-top:10px;font-size:.83rem;line-height:1.55}
+.dnotes{color:#4da6ff;margin-top:8px;font-size:.79rem;background:#0a1520;border:1px solid #1a3a5a;border-radius:6px;padding:6px 12px;display:inline-block}
+.drange{color:#3a3a4a;font-size:.74rem;margin-top:10px;display:flex;align-items:center;gap:5px}
+.drange span{color:#4a4a6a}
+.stats-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.sbar{flex:1;min-width:82px;background:#13131f;border:1px solid #1e1e2e;border-radius:10px;padding:16px 10px;text-align:center}
+.sbar .sv{font-size:1.6rem;font-weight:700;line-height:1}
+.sbar .sl2{font-size:.63rem;color:#3a3a4a;margin-top:6px;text-transform:uppercase;letter-spacing:.07em}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;margin-bottom:28px}
+.info-section{background:#13131f;border:1px solid #1a1a2a;border-radius:10px;overflow:hidden}
+.info-title{background:#0c0c1a;color:#4a6aff;font-size:.65rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;padding:9px 14px;border-bottom:1px solid #1a1a2a}
+.info-rows{padding:2px 0}
+.info-row{display:flex;justify-content:space-between;align-items:baseline;padding:7px 14px;gap:14px;border-bottom:1px solid rgba(255,255,255,.03)}
+.info-row:last-child{border-bottom:none}
+.info-row:hover{background:rgba(255,255,255,.018)}
+.ik{color:#444;font-size:.74rem;white-space:nowrap;flex-shrink:0}
+.iv{color:#bbb;font-size:.79rem;text-align:right}
+.cta-btn{display:inline-flex;align-items:center;gap:6px;background:#162d52;border:1px solid #1e4080;
+  color:#6aafff;padding:10px 20px;border-radius:8px;text-decoration:none;
+  font-size:.88rem;font-weight:600;white-space:nowrap;flex-shrink:0;
+  transition:background .15s,color .15s,border-color .15s}
+.cta-btn:hover{background:#1e4080;color:#fff;border-color:#4da6ff}
+.cta-btn.disabled{opacity:.3;pointer-events:none;cursor:default}
 </style>
 </head>
 <body>
@@ -100,8 +100,12 @@ h1.main{font-size:1.5rem;color:#f0f0f0;margin-bottom:4px}
 <!-- ── Detail ── -->
 <div id="screen-detail">
   <button class="back-btn" onclick="goHome()">&#8592; Back to Dashboard</button>
-  <div id="d-head" class="dhead"></div>
-  <div class="cta-bar"><a id="d-cta" class="cta-btn" href="#">View Stocks &#8594;</a></div>
+  <div class="dcard">
+    <div class="dcard-top">
+      <div id="d-head" class="dhead"></div>
+      <a id="d-cta" class="cta-btn" href="#">View Stocks &#8594;</a>
+    </div>
+  </div>
   <div id="d-stats" class="stats-bar"></div>
   <div id="d-body"></div>
 </div>
@@ -126,17 +130,19 @@ function openCard(i) {
     '<h1>' + c.stratLabel + ' ' + badge + '</h1>' +
     (c.description ? '<div class="ddesc">' + c.description + '</div>' : '') +
     (c.notes       ? '<div class="dnotes">' + c.notes + '</div>'       : '') +
-    (c.fromDate    ? '<div class="drange">Period: ' + c.fromDate + ' → ' + c.toDate + '</div>' : '');
+    (c.fromDate    ? '<div class="drange"><span>' + c.fromDate + '</span> &rarr; <span>' + c.toDate + '</span></div>' : '');
 
   const wrf  = parseFloat(c.wr);
   const wrc  = wrf >= 60 ? '#00cc55' : wrf >= 50 ? '#ffc107' : '#ff4444';
   const wrbg = wrf >= 60 ? '#071a0f' : wrf >= 50 ? '#1a1500' : '#1a0707';
+  const open = c.total - c.wins - c.sl;
   document.getElementById('d-stats').innerHTML =
     sbar(c.total,   'Signals') +
     sbar(c.symCount,'Symbols') +
-    '<div class="sbar"><div class="sv" style="color:' + wrc + ';background:' + wrbg + ';padding:3px 10px;border-radius:6px">' + c.wr + '%</div><div class="sl2">Win Rate</div></div>' +
+    '<div class="sbar"><div class="sv" style="color:' + wrc + ';background:' + wrbg + ';padding:4px 12px;border-radius:7px;font-size:1.4rem">' + c.wr + '%</div><div class="sl2">Win Rate</div></div>' +
     sbar(c.wins, 'Wins',    '#00cc55') +
-    sbar(c.sl,   'SL Hits', '#ff4444');
+    sbar(c.sl,   'SL Hits', '#ff4444') +
+    (open > 0 ? sbar(open, 'Open', '#888') : '');
 
   document.getElementById('d-body').innerHTML =
     c.config ? renderConfig(c.config) : '<p style="color:#555;padding:16px 0">No config available</p>';
