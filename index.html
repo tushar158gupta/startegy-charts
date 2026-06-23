@@ -5,80 +5,82 @@
 <title>Backtest Dashboard</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',sans-serif;background:#0b0b0f;color:#ddd;min-height:100vh}
+body{font-family:'Segoe UI',sans-serif;background:#0b0b0f;color:#e0e0e0;min-height:100vh}
 
-/* ── Home screen ── */
+/* ── Home ── */
 #screen-home{padding:30px}
-h1.main{font-size:1.5rem;color:#f0f0f0;margin-bottom:4px}
-.sub{color:#555;font-size:.85rem;display:block;margin-top:4px;margin-bottom:28px}
-
-/* Strategy group */
-.strat-group{margin-bottom:36px}
+h1.main{font-size:1.5rem;color:#f5f5f5;margin-bottom:4px}
+.sub{color:#aaa;font-size:.85rem;display:block;margin-top:4px;margin-bottom:28px}
+.strat-group{margin-bottom:40px}
 .strat-heading{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-.strat-heading h2{font-size:1.05rem;font-weight:700;color:#c0c0d0;white-space:nowrap}
-.strat-heading::after{content:'';flex:1;height:1px;background:linear-gradient(to right,#2a2a3a,transparent)}
-.strat-count{color:#444;font-size:.72rem;white-space:nowrap}
-
+.strat-heading h2{font-size:1.15rem;font-weight:700;color:#e8e8f0;white-space:nowrap}
+.strat-heading::after{content:'';flex:1;height:1px;background:linear-gradient(to right,#3a3a4a,transparent)}
+.strat-count{color:#888;font-size:.72rem;white-space:nowrap}
+.compare-btn{background:#0e1a2e;border:1px solid #2a4a7f;color:#6ab4ff;font-size:.75rem;
+  padding:5px 14px;border-radius:6px;cursor:pointer;white-space:nowrap;text-decoration:none;
+  display:inline-flex;align-items:center;gap:5px;
+  transition:background .15s,border-color .15s,color .15s}
+.compare-btn:hover{background:#162d52;border-color:#4da6ff;color:#aad4ff}
 .grid{display:flex;flex-wrap:wrap;gap:14px}
-.card{background:#13131f;border:1px solid #222;border-radius:12px;padding:18px 20px;
-  cursor:pointer;color:#ddd;user-select:none;width:260px;flex-shrink:0;
+.card{background:#13131f;border:1px solid #252530;border-radius:12px;padding:18px 20px;
+  cursor:pointer;color:#e0e0e0;user-select:none;width:270px;flex-shrink:0;
   transition:border-color .15s,background .15s,transform .12s}
-.card:hover{border-color:#4da6ff;background:#161625;transform:translateY(-2px);box-shadow:0 0 18px rgba(77,166,255,.18),0 4px 24px rgba(0,0,0,.4)}
-.chead{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.cname{font-size:.82rem;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.05em}
-.vbadge{background:#1a1a3a;border:1px solid #3a3a6a;color:#7a9fff;font-size:.72rem;padding:2px 8px;border-radius:10px}
-.cdesc{color:#888;font-size:.77rem;margin-bottom:10px;line-height:1.45}
-.cstats{display:flex;gap:16px;margin:10px 0}
+.card:hover{border-color:#4da6ff;background:#16162a;transform:translateY(-2px);
+  box-shadow:0 0 18px rgba(77,166,255,.15),0 4px 24px rgba(0,0,0,.4)}
+.card.no-data{opacity:.7;border-style:dashed}
+.chead{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.cname{font-size:.7rem;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:.06em}
+.vbadge{background:#1a1a3a;border:1px solid #3a3a6a;color:#8ab4ff;font-size:.74rem;padding:2px 9px;border-radius:10px}
+.vbadge.latest{background:#0a1f0a;border-color:#2a5a2a;color:#5acc5a}
+.cdesc{color:#c8c8c8;font-size:.78rem;margin-bottom:10px;line-height:1.5}
+.cstats{display:flex;gap:14px;margin:10px 0}
 .cs{display:flex;flex-direction:column;gap:3px}
-.cv{font-size:1.1rem;font-weight:700}
-.cl{font-size:.68rem;color:#555}
-.cnotes{color:#555;font-size:.72rem;margin-top:8px;padding-top:8px;border-top:1px solid #1a1a2a;line-height:1.4}
-.nocharts{color:#888;font-size:.72rem;margin-top:8px;background:#111;border:1px solid #1a1a1a;border-radius:4px;padding:5px 8px;font-family:monospace}
+.cv{font-size:1.1rem;font-weight:700;color:#f0f0f0}
+.cl{font-size:.68rem;color:#888}
+.cnotes{color:#b0b0b0;font-size:.73rem;margin-top:8px;padding-top:8px;border-top:1px solid #222;line-height:1.45}
+.no-stats{color:#888;font-size:.76rem;font-style:italic;padding:8px 0}
 
-/* ── Detail screen ── */
+/* ── Detail ── */
 #screen-detail{display:none;padding:20px 24px 48px;max-width:960px;margin:0 auto}
-.back-btn{background:none;border:none;color:#4da6ff;cursor:pointer;font-size:.82rem;
+.back-btn{background:none;border:none;color:#6ab4ff;cursor:pointer;font-size:.84rem;
   padding:0;margin-bottom:14px;display:inline-flex;align-items:center;gap:5px}
-.back-btn:hover{color:#7abfff;text-decoration:underline;text-shadow:0 0 10px rgba(77,166,255,.5)}
-.dcard{background:#13131f;border:1px solid #222;border-radius:14px;padding:20px 24px;margin-bottom:18px}
+.back-btn:hover{color:#aad4ff;text-decoration:underline}
+.dcard{background:#13131f;border:1px solid #252530;border-radius:14px;padding:20px 24px;margin-bottom:18px}
 .dcard-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
-.dhead h1{font-size:1.5rem;color:#f0f0f0;font-weight:700;display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;line-height:1.2}
-.ddesc{color:#777;margin-top:10px;font-size:.83rem;line-height:1.55}
-.dnotes{color:#4da6ff;margin-top:8px;font-size:.79rem;background:#0a1520;border:1px solid #1a3a5a;border-radius:6px;padding:6px 12px;display:inline-block}
-.drange{color:#3a3a4a;font-size:.74rem;margin-top:10px;display:flex;align-items:center;gap:5px}
-.drange span{color:#4a4a6a}
+.dhead h1{font-size:1.5rem;color:#f5f5f5;font-weight:700;display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;line-height:1.2}
+.ddesc{color:#c8c8c8;margin-top:10px;font-size:.84rem;line-height:1.55}
+.dnotes{color:#7ac4ff;margin-top:8px;font-size:.8rem;background:#0a1520;border:1px solid #1a3a5a;border-radius:6px;padding:6px 12px;display:inline-block}
+.drange{color:#999;font-size:.75rem;margin-top:10px;display:flex;align-items:center;gap:5px}
+.drange span{color:#bbb}
 .stats-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
-.sbar{flex:1;min-width:82px;background:#13131f;border:1px solid #1e1e2e;border-radius:10px;padding:16px 10px;text-align:center}
-.sbar .sv{font-size:1.6rem;font-weight:700;line-height:1}
-.sbar .sl2{font-size:.63rem;color:#3a3a4a;margin-top:6px;text-transform:uppercase;letter-spacing:.07em}
+.sbar{flex:1;min-width:82px;background:#13131f;border:1px solid #222;border-radius:10px;padding:16px 10px;text-align:center}
+.sbar .sv{font-size:1.6rem;font-weight:700;line-height:1;color:#f0f0f0}
+.sbar .sl2{font-size:.63rem;color:#888;margin-top:6px;text-transform:uppercase;letter-spacing:.07em}
 .info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;margin-bottom:28px}
-.info-section{background:#13131f;border:1px solid #1a1a2a;border-radius:10px;overflow:hidden}
-.info-title{background:#0c0c1a;color:#4a6aff;font-size:.65rem;font-weight:700;
-  letter-spacing:.1em;text-transform:uppercase;padding:9px 14px;border-bottom:1px solid #1a1a2a}
+.info-section{background:#13131f;border:1px solid #1e1e2e;border-radius:10px;overflow:hidden}
+.info-title{background:#0c0c1a;color:#7a9aff;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:9px 14px;border-bottom:1px solid #1e1e2e}
 .info-rows{padding:2px 0}
-.info-row{display:flex;justify-content:space-between;align-items:baseline;padding:7px 14px;gap:14px;border-bottom:1px solid rgba(255,255,255,.03)}
+.info-row{display:flex;justify-content:space-between;align-items:baseline;padding:7px 14px;gap:14px;border-bottom:1px solid rgba(255,255,255,.04)}
 .info-row:last-child{border-bottom:none}
-.info-row:hover{background:rgba(255,255,255,.018)}
-.ik{color:#444;font-size:.74rem;white-space:nowrap;flex-shrink:0}
-.iv{color:#bbb;font-size:.79rem;text-align:right}
-.cta-btn{display:inline-flex;align-items:center;gap:6px;background:#162d52;border:1px solid #1e4080;
-  color:#6aafff;padding:10px 20px;border-radius:8px;text-decoration:none;
+.info-row:hover{background:rgba(255,255,255,.025)}
+.ik{color:#bbb;font-size:.75rem;white-space:nowrap;flex-shrink:0}
+.iv{color:#e8e8e8;font-size:.8rem;text-align:right}
+.cta-btn{display:inline-flex;align-items:center;gap:6px;background:#162d52;border:1px solid #2a4a80;
+  color:#7abfff;padding:10px 20px;border-radius:8px;text-decoration:none;
   font-size:.88rem;font-weight:600;white-space:nowrap;flex-shrink:0;
   transition:background .15s,color .15s,border-color .15s}
-.cta-btn:hover{background:#1e4080;color:#fff;border-color:#4da6ff;box-shadow:0 0 20px rgba(77,166,255,.35)}
+.cta-btn:hover{background:#1e4080;color:#fff;border-color:#4da6ff;box-shadow:0 0 20px rgba(77,166,255,.3)}
 .cta-btn.disabled{opacity:.3;pointer-events:none;cursor:default}
 </style>
 </head>
 <body>
 
-<!-- ── Home ── -->
 <div id="screen-home">
   <h1 class="main">Backtest Dashboard</h1>
-  <span class="sub" id="home-sub">Click a strategy version to see details</span>
+  <span class="sub" id="home-sub"></span>
   <div id="home-groups"></div>
 </div>
 
-<!-- ── Detail ── -->
 <div id="screen-detail">
   <button class="back-btn" onclick="goHome()">&#8592; Back to Dashboard</button>
   <div class="dcard">
@@ -92,219 +94,269 @@ h1.main{font-size:1.5rem;color:#f0f0f0;margin-bottom:4px}
 </div>
 
 <script>
-const CARDS = [{"stratLabel":"Doji Hammer","version":"v1","total":236,"wins":160,"sl":75,"wr":"68.1","symCount":50,"description":"Doji→Hammer · 15/30/60min · t1=1.5R t2=2R t3=3R · CONFIRMED mode","notes":"Initial config","fromDate":"2025-06-16","toDate":"2026-06-05","folder":"dojiHammer_v1","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute","60minute"],"LOOKBACK_CANDLES":50,"DOJI_MAX_BODY_PCT":0.25,"HAMMER_MAX_BODY_PCT":0.4,"HAMMER_MIN_LOWER_WICK_PCT":0.5,"HAMMER_MAX_UPPER_WICK_PCT":0.25,"MIN_RANGE_PCT":{"15minute":{"doji":0.15,"hammer":0.25},"30minute":{"doji":0.2,"hammer":0.35},"60minute":{"doji":0.25,"hammer":0.4}},"DEFAULT_MIN_RANGE":{"doji":0.2,"hammer":0.3},"TREND_LOOKBACK":5,"DECLINE_BY_INTERVAL":{"15minute":0.15,"30minute":0.25,"60minute":0.5},"DEFAULT_DECLINE_PCT":0.5,"REQUIRE_BULLISH_ENTRY":true,"MIN_VOLUME_MULTIPLE":1,"VOLUME_LOOKBACK":10,"TRADE_PARAMS":{"15minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":5},"30minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":6},"60minute":{"slBuffer":0.05,"t1R":2,"t2R":2.5,"t3R":3,"maxHoldCandles":5}},"MINIMUM_RISK_PTS":0,"MAX_RISK_PCT":20,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15}},{"stratLabel":"Doji Hammer","version":"v2","total":111,"wins":72,"sl":39,"wr":"64.9","symCount":46,"description":"Doji→Hammer · 15/30/60min · t1=1.5R t2=2R t3=3R · CONFIRMED mode · strict upper wick","notes":"Upper wick tightened from 25% → 10% of candle range — cleaner hammer rejections","fromDate":"2025-06-16","toDate":"2026-06-03","folder":"dojiHammer_v2","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute","60minute"],"LOOKBACK_CANDLES":50,"DOJI_MAX_BODY_PCT":0.25,"HAMMER_MAX_BODY_PCT":0.4,"HAMMER_MIN_LOWER_WICK_PCT":0.5,"HAMMER_MAX_UPPER_WICK_PCT":0.1,"MIN_RANGE_PCT":{"15minute":{"doji":0.15,"hammer":0.25},"30minute":{"doji":0.2,"hammer":0.35},"60minute":{"doji":0.25,"hammer":0.4}},"DEFAULT_MIN_RANGE":{"doji":0.2,"hammer":0.3},"TREND_LOOKBACK":5,"DECLINE_BY_INTERVAL":{"15minute":0.15,"30minute":0.25,"60minute":0.5},"DEFAULT_DECLINE_PCT":0.5,"REQUIRE_BULLISH_ENTRY":true,"MIN_VOLUME_MULTIPLE":1,"VOLUME_LOOKBACK":10,"TRADE_PARAMS":{"15minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":5},"30minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":6},"60minute":{"slBuffer":0.05,"t1R":2,"t2R":2.5,"t3R":3,"maxHoldCandles":5}},"MINIMUM_RISK_PTS":0,"MAX_RISK_PCT":20,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15}},{"stratLabel":"Doji Hammer","version":"v3","total":339,"wins":200,"sl":139,"wr":"59.0","symCount":50,"description":"Doji→Hammer · 15/30/60min · t1=1.5R t2=2R t3=3R · more signals · tight uw","notes":"No c3-above-hammer-high req · relaxed downtrend/range thresholds · doji body 0.25→0.30 · upper wick kept at 10%","fromDate":"2025-06-11","toDate":"2026-06-03","folder":"dojiHammer_v3","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute","60minute"],"LOOKBACK_CANDLES":50,"DOJI_MAX_BODY_PCT":0.3,"HAMMER_MAX_BODY_PCT":0.4,"HAMMER_MIN_LOWER_WICK_PCT":0.5,"HAMMER_MAX_UPPER_WICK_PCT":0.1,"MIN_RANGE_PCT":{"15minute":{"doji":0.1,"hammer":0.18},"30minute":{"doji":0.12,"hammer":0.22},"60minute":{"doji":0.15,"hammer":0.28}},"DEFAULT_MIN_RANGE":{"doji":0.12,"hammer":0.2},"TREND_LOOKBACK":5,"DECLINE_BY_INTERVAL":{"15minute":0.08,"30minute":0.12,"60minute":0.25},"DEFAULT_DECLINE_PCT":0.25,"REQUIRE_BULLISH_ENTRY":true,"REQUIRE_C3_ABOVE_HAMMER_HIGH":false,"MIN_VOLUME_MULTIPLE":1,"VOLUME_LOOKBACK":10,"TRADE_PARAMS":{"15minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":5},"30minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":6},"60minute":{"slBuffer":0.05,"t1R":2,"t2R":2.5,"t3R":3,"maxHoldCandles":5}},"MINIMUM_RISK_PTS":0,"MAX_RISK_PCT":20,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15}},{"stratLabel":"Tweezer Bottom","version":"v1","total":1040,"wins":517,"sl":449,"wr":"53.5","symCount":50,"description":"RSI 25-45 · ADX 25-35 · T1=1.5R T2=2.5R · PENDING only · 15/30/60min","notes":"1040 signals · 53.5% win rate · 2.21x R:R · +0.51% EV/trade","fromDate":"2025-06-13","toDate":"2026-06-05","folder":"tweezerBottom_v1","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute","60minute"],"LOOKBACK_CANDLES":100,"LOW_TOLERANCE_PCT":0.15,"STRONG_BODY_RATIO":0.6,"NORMAL_BODY_MIN_RATIO":0.3,"MIN_CANDLE_RANGE_PCT":0.05,"REQUIRE_STRONG_C1":true,"REQUIRE_STRONG_C2":true,"TREND_LOOKBACK":20,"HTF_LOOKBACK_MULTIPLIER":4,"SWING_LOOKBACK":10,"SUPPORT_ZONE_PCT":0.25,"ATR_PERIOD":14,"ATR_MIN_THRESHOLD_PCT":0.3,"ADX_PERIOD":14,"ADX_THRESHOLD":25,"ADX_MAX":35,"RSI_PERIOD":14,"RSI_MIN":25,"RSI_MAX":45,"VOLUME_MA_PERIOD":20,"BREAKOUT_BUFFER_PCT":0,"SL_BUFFER_PCT":0.1,"MIN_RISK_PCT":0.5,"MAX_RISK_PCT":1.5,"T1_RR":1.5,"T2_RR":2.5,"MIN_RR_RATIO":1.5,"TRAILING_ACTIVATION_RR":1,"TRAILING_STOP_PCT":0.5,"PARTIAL_BOOKING_RR":2,"PARTIAL_BOOKING_PCT":50,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15,"SKIP_CONFIRMED":true}},{"stratLabel":"Tweezer Bottom","version":"v2","total":198,"wins":85,"sl":89,"wr":"48.9","symCount":49,"description":"RSI 25-40 · ADX 25-50 · T1=2R T2=3R · PENDING+CONFIRMED · 15/30min","notes":"Higher targets, wider ADX band, stricter risk floor (1% min), normal C1 allowed","fromDate":"2025-06-16","toDate":"2026-06-03","folder":"tweezerBottom_v2","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute"],"LOOKBACK_CANDLES":100,"LOW_TOLERANCE_PCT":0.15,"STRONG_BODY_RATIO":0.6,"NORMAL_BODY_MIN_RATIO":0.3,"MIN_CANDLE_RANGE_PCT":0.05,"REQUIRE_STRONG_C2":true,"TREND_LOOKBACK":20,"HTF_LOOKBACK_MULTIPLIER":4,"SWING_LOOKBACK":10,"SUPPORT_ZONE_PCT":0.5,"ATR_PERIOD":14,"ATR_MIN_THRESHOLD_PCT":0.3,"ADX_PERIOD":14,"ADX_THRESHOLD":25,"ADX_MAX":50,"RSI_PERIOD":14,"RSI_MIN":25,"RSI_MAX":40,"VOLUME_MA_PERIOD":20,"BREAKOUT_BUFFER_PCT":0,"SL_BUFFER_PCT":0.1,"MIN_RISK_PCT":1,"MAX_RISK_PCT":1.5,"T1_RR":2,"T2_RR":3,"MIN_RR_RATIO":1.5,"TRAILING_ACTIVATION_RR":1.5,"TRAILING_STOP_PCT":0.5,"PARTIAL_BOOKING_RR":2,"PARTIAL_BOOKING_PCT":50,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15}}];
+var CARDS = [
+  {
+    stratLabel:'Doji Hammer', version:'v1',
+    total:236, wins:160, sl:75, wr:'68.1', symCount:50,
+    description:'Doji→Hammer \xb7 15/30/60min \xb7 t1=1.5R t2=2R t3=3R \xb7 CONFIRMED mode',
+    notes:'Initial config',
+    fromDate:'2025-06-16', toDate:'2026-06-05', folder:'dojiHammer_v1', hasCharts:true,
+    config:{
+      TIMEFRAMES:['15minute','30minute','60minute'], LOOKBACK_CANDLES:50,
+      DOJI_MAX_BODY_PCT:0.25, HAMMER_MAX_BODY_PCT:0.40,
+      HAMMER_MIN_LOWER_WICK_PCT:0.50, HAMMER_MAX_UPPER_WICK_PCT:0.25,
+      MIN_RANGE_PCT:{'15minute':{doji:0.15,hammer:0.25},'30minute':{doji:0.20,hammer:0.35},'60minute':{doji:0.25,hammer:0.40}},
+      TREND_LOOKBACK:5, DECLINE_BY_INTERVAL:{'15minute':0.15,'30minute':0.25,'60minute':0.50},
+      REQUIRE_BULLISH_ENTRY:true, MIN_VOLUME_MULTIPLE:1.0, VOLUME_LOOKBACK:10,
+      TRADE_PARAMS:{'15minute':{slBuffer:0.05,t1R:1.5,t2R:2.0,t3R:3.0,maxHoldCandles:5},'30minute':{slBuffer:0.05,t1R:1.5,t2R:2.0,t3R:3.0,maxHoldCandles:6},'60minute':{slBuffer:0.05,t1R:2.0,t2R:2.5,t3R:3.0,maxHoldCandles:5}},
+      MAX_RISK_PCT:20.0, EOD_CUTOFF_HOUR:15
+    }
+  },
+  {
+    stratLabel:'Doji Hammer', version:'v2',
+    total:111, wins:72, sl:39, wr:'64.9', symCount:46,
+    description:'Doji→Hammer \xb7 15/30/60min \xb7 t1=1.5R t2=2R t3=3R \xb7 CONFIRMED \xb7 strict upper wick',
+    notes:'Upper wick tightened 25%→10% — cleaner hammer rejections',
+    fromDate:'2025-06-16', toDate:'2026-06-03', folder:'dojiHammer_v2', hasCharts:true,
+    config:{
+      TIMEFRAMES:['15minute','30minute','60minute'], LOOKBACK_CANDLES:50,
+      DOJI_MAX_BODY_PCT:0.25, HAMMER_MAX_BODY_PCT:0.40,
+      HAMMER_MIN_LOWER_WICK_PCT:0.50, HAMMER_MAX_UPPER_WICK_PCT:0.10,
+      MIN_RANGE_PCT:{'15minute':{doji:0.15,hammer:0.25},'30minute':{doji:0.20,hammer:0.35},'60minute':{doji:0.25,hammer:0.40}},
+      TREND_LOOKBACK:5, DECLINE_BY_INTERVAL:{'15minute':0.15,'30minute':0.25,'60minute':0.50},
+      REQUIRE_BULLISH_ENTRY:true, MIN_VOLUME_MULTIPLE:1.0, VOLUME_LOOKBACK:10,
+      TRADE_PARAMS:{'15minute':{slBuffer:0.05,t1R:1.5,t2R:2.0,t3R:3.0,maxHoldCandles:5},'30minute':{slBuffer:0.05,t1R:1.5,t2R:2.0,t3R:3.0,maxHoldCandles:6},'60minute':{slBuffer:0.05,t1R:2.0,t2R:2.5,t3R:3.0,maxHoldCandles:5}},
+      MAX_RISK_PCT:20.0, EOD_CUTOFF_HOUR:15
+    }
+  },
+  {
+    stratLabel:'Doji Hammer', version:'v3',
+    total:339, wins:200, sl:139, wr:'59.0', symCount:50,
+    description:'Doji→Hammer \xb7 15/30/60min \xb7 t1=1.5R t2=2R t3=3R \xb7 more signals \xb7 tight uw',
+    notes:'No c3-above-hammer-high req \xb7 relaxed thresholds \xb7 doji body 25%→30%',
+    fromDate:'2025-06-11', toDate:'2026-06-03', folder:'dojiHammer_v3', hasCharts:true,
+    config:{
+      TIMEFRAMES:['15minute','30minute','60minute'], LOOKBACK_CANDLES:50,
+      DOJI_MAX_BODY_PCT:0.30, HAMMER_MAX_BODY_PCT:0.40,
+      HAMMER_MIN_LOWER_WICK_PCT:0.50, HAMMER_MAX_UPPER_WICK_PCT:0.10,
+      MIN_RANGE_PCT:{'15minute':{doji:0.10,hammer:0.18},'30minute':{doji:0.12,hammer:0.22},'60minute':{doji:0.15,hammer:0.28}},
+      TREND_LOOKBACK:5, DECLINE_BY_INTERVAL:{'15minute':0.08,'30minute':0.12,'60minute':0.25},
+      REQUIRE_BULLISH_ENTRY:true, REQUIRE_C3_ABOVE_HAMMER_HIGH:false,
+      MIN_VOLUME_MULTIPLE:1.0, VOLUME_LOOKBACK:10,
+      TRADE_PARAMS:{'15minute':{slBuffer:0.05,t1R:1.5,t2R:2.0,t3R:3.0,maxHoldCandles:5},'30minute':{slBuffer:0.05,t1R:1.5,t2R:2.0,t3R:3.0,maxHoldCandles:6},'60minute':{slBuffer:0.05,t1R:2.0,t2R:2.5,t3R:3.0,maxHoldCandles:5}},
+      MAX_RISK_PCT:20.0, EOD_CUTOFF_HOUR:15
+    }
+  },
+  {
+    stratLabel:'Doji Hammer', version:'v4',
+    total:15, wins:7, sl:8, wr:'46.7', symCount:14,
+    description:'Doji→Hammer \xb7 15/30/60min \xb7 EMA trend \xb7 support 0.25% \xb7 RSI 35-50 \xb7 ADX 20-35 \xb7 max risk 1%',
+    notes:'EMA21<EMA50+declining \xb7 hammer low within 0.25% swing support \xb7 vol>=1.5x \xb7 lw>=60% \xb7 doji body<=15%',
+    fromDate:'2025-06-11', toDate:'2026-06-23', folder:'dojiHammer_v4', hasCharts:true,
+    config:{
+      TIMEFRAMES:['15minute','30minute','60minute'], LOOKBACK_CANDLES:100,
+      DOJI_MAX_BODY_PCT:0.15, HAMMER_MAX_BODY_PCT:0.40,
+      HAMMER_MIN_LOWER_WICK_PCT:0.60, HAMMER_MAX_UPPER_WICK_PCT:0.10,
+      MIN_RANGE_PCT:{'15minute':{doji:0.10,hammer:0.18},'30minute':{doji:0.12,hammer:0.22},'60minute':{doji:0.15,hammer:0.28}},
+      REQUIRE_EMA_TREND_FILTER:true, EMA_SHORT:21, EMA_LONG:50, EMA_DECLINE_LOOKBACK:3,
+      REQUIRE_SUPPORT_FILTER:true, SUPPORT_PROXIMITY_PCT:0.0025, SWING_LOOKBACK:3,
+      REQUIRE_RSI_FILTER:true, RSI_PERIOD:14, RSI_MIN:35, RSI_MAX:50,
+      REQUIRE_ADX_FILTER:true, ADX_PERIOD:14, ADX_MIN:20, ADX_MAX:35,
+      REQUIRE_BULLISH_ENTRY:true, REQUIRE_C3_ABOVE_HAMMER_HIGH:false, REQUIRE_C3_HIGH_BREAKOUT:false,
+      MIN_VOLUME_MULTIPLE:1.5, VOLUME_LOOKBACK:10,
+      TRADE_PARAMS:{'15minute':{slBuffer:0.05,t1R:1.5,t2R:2.0,t3R:3.0,maxHoldCandles:5},'30minute':{slBuffer:0.05,t1R:1.5,t2R:2.0,t3R:3.0,maxHoldCandles:6},'60minute':{slBuffer:0.05,t1R:2.0,t2R:2.5,t3R:3.0,maxHoldCandles:5}},
+      MAX_RISK_PCT:1.0, EOD_CUTOFF_HOUR:15
+    }
+  },
+  {
+    stratLabel:'Tweezer Bottom', version:'v1',
+    total:1040, wins:517, sl:449, wr:'53.5', symCount:50,
+    description:'RSI 25-45 \xb7 ADX 25-35 \xb7 T1=1.5R T2=2.5R \xb7 PENDING only \xb7 15/30/60min',
+    notes:'1040 signals \xb7 53.5% win rate \xb7 2.21x R:R \xb7 +0.51% EV/trade',
+    fromDate:'2025-06-13', toDate:'2026-06-05', folder:'tweezerBottom_v1', hasCharts:true,
+    config:{
+      TIMEFRAMES:['15minute','30minute','60minute'], LOOKBACK_CANDLES:100,
+      LOW_TOLERANCE_PCT:0.15, STRONG_BODY_RATIO:0.60, NORMAL_BODY_MIN_RATIO:0.30,
+      MIN_CANDLE_RANGE_PCT:0.05, REQUIRE_STRONG_C1:true, REQUIRE_STRONG_C2:true,
+      TREND_LOOKBACK:20, HTF_LOOKBACK_MULTIPLIER:4,
+      SWING_LOOKBACK:10, SUPPORT_ZONE_PCT:0.25,
+      ATR_PERIOD:14, ATR_MIN_THRESHOLD_PCT:0.3,
+      ADX_PERIOD:14, ADX_THRESHOLD:25, ADX_MAX:35,
+      RSI_PERIOD:14, RSI_MIN:25, RSI_MAX:45,
+      VOLUME_MA_PERIOD:20,
+      BREAKOUT_BUFFER_PCT:0, SL_BUFFER_PCT:0.1, MIN_RISK_PCT:0.5, MAX_RISK_PCT:1.5,
+      T1_RR:1.5, T2_RR:2.5, MIN_RR_RATIO:1.5,
+      TRAILING_ACTIVATION_RR:1.0, TRAILING_STOP_PCT:0.5,
+      PARTIAL_BOOKING_RR:2, PARTIAL_BOOKING_PCT:50,
+      SKIP_CONFIRMED:true, EOD_CUTOFF_HOUR:15
+    }
+  },
+  {
+    stratLabel:'Tweezer Bottom', version:'v2',
+    total:198, wins:85, sl:89, wr:'48.9', symCount:49,
+    description:'RSI 25-40 \xb7 ADX 25-50 \xb7 T1=2R T2=3R \xb7 PENDING+CONFIRMED \xb7 15/30min',
+    notes:'Higher targets \xb7 wider ADX band \xb7 risk floor 1% \xb7 normal C1 body accepted',
+    fromDate:'2025-06-16', toDate:'2026-06-03', folder:'tweezerBottom_v2', hasCharts:true,
+    config:{
+      TIMEFRAMES:['15minute','30minute'], LOOKBACK_CANDLES:100,
+      LOW_TOLERANCE_PCT:0.15, STRONG_BODY_RATIO:0.60, NORMAL_BODY_MIN_RATIO:0.30,
+      MIN_CANDLE_RANGE_PCT:0.05, REQUIRE_STRONG_C2:true,
+      TREND_LOOKBACK:20, HTF_LOOKBACK_MULTIPLIER:4,
+      SWING_LOOKBACK:10, SUPPORT_ZONE_PCT:0.50,
+      ATR_PERIOD:14, ATR_MIN_THRESHOLD_PCT:0.3,
+      ADX_PERIOD:14, ADX_THRESHOLD:25, ADX_MAX:50,
+      RSI_PERIOD:14, RSI_MIN:25, RSI_MAX:40,
+      VOLUME_MA_PERIOD:20,
+      BREAKOUT_BUFFER_PCT:0, SL_BUFFER_PCT:0.1, MIN_RISK_PCT:1.0, MAX_RISK_PCT:1.5,
+      T1_RR:2, T2_RR:3, MIN_RR_RATIO:1.5,
+      TRAILING_ACTIVATION_RR:1.5, TRAILING_STOP_PCT:0.5,
+      PARTIAL_BOOKING_RR:2, PARTIAL_BOOKING_PCT:50,
+      EOD_CUTOFF_HOUR:15
+    }
+  },
+  {
+    stratLabel:'Tweezer Bottom', version:'v3',
+    total:null, wins:null, sl:null, wr:null, symCount:null,
+    description:'EMA trend \xb7 support 0.20% \xb7 vol≥1.2x \xb7 RSI 38-45 \xb7 ADX 25-30 rising \xb7 max risk 1%',
+    notes:'EMA21<EMA50+declining \xb7 support zone tightened \xb7 volume filter added \xb7 RSI/ADX tightened',
+    fromDate:null, toDate:null, folder:null, hasCharts:false,
+    config:{
+      TIMEFRAMES:['15minute','30minute'], LOOKBACK_CANDLES:100,
+      LOW_TOLERANCE_PCT:0.15, STRONG_BODY_RATIO:0.60, NORMAL_BODY_MIN_RATIO:0.30,
+      MIN_CANDLE_RANGE_PCT:0.05, REQUIRE_STRONG_C2:true,
+      EMA_SHORT:21, EMA_LONG:50, EMA_DECLINE_LOOKBACK:3,
+      TREND_LOOKBACK:20, HTF_LOOKBACK_MULTIPLIER:4,
+      SWING_LOOKBACK:5, SUPPORT_ZONE_PCT:0.20,
+      ATR_PERIOD:14, ATR_MIN_THRESHOLD_PCT:0.3,
+      ADX_PERIOD:14, ADX_THRESHOLD:25, ADX_MAX:30, REQUIRE_ADX_RISING:true,
+      RSI_PERIOD:14, RSI_MIN:38, RSI_MAX:45,
+      VOLUME_MA_PERIOD:20, MIN_VOLUME_MULTIPLE:1.2,
+      BREAKOUT_BUFFER_PCT:0, SL_BUFFER_PCT:0.1, MIN_RISK_PCT:1.0, MAX_RISK_PCT:1.0,
+      T1_RR:2, T2_RR:3, MIN_RR_RATIO:1.5,
+      TRAILING_ACTIVATION_RR:1.5, TRAILING_STOP_PCT:0.5,
+      PARTIAL_BOOKING_RR:2, PARTIAL_BOOKING_PCT:50,
+      EOD_CUTOFF_HOUR:15
+    }
+  }
+];
 
-// ── Render grouped home screen ────────────────────────────────────────────────
-function renderHome() {
-  // Group cards by stratLabel
-  var groups = {};
-  var order  = [];
-  CARDS.forEach(function(c, i) {
-    if (!groups[c.stratLabel]) { groups[c.stratLabel] = []; order.push(c.stratLabel); }
-    groups[c.stratLabel].push({ card: c, idx: i });
-  });
-
-  document.getElementById('home-sub').textContent =
-    'Click a strategy version to see details · ' + order.length + ' strategies · ' + CARDS.length + ' versions';
-
-  var html = '';
-  order.forEach(function(label) {
-    var items = groups[label];
-    html += '<div class="strat-group">';
-    html += '<div class="strat-heading"><h2>' + label + '</h2><span class="strat-count">' + items.length + ' version' + (items.length > 1 ? 's' : '') + '</span></div>';
-    html += '<div class="grid">';
-    items.forEach(function(item) {
-      var c   = item.card;
-      var i   = item.idx;
-      var wrf = parseFloat(c.wr);
-      var wrc = wrf >= 60 ? '#00cc55' : wrf >= 50 ? '#ffc107' : '#ff4444';
-      var wrbg= wrf >= 60 ? '#071a0f' : wrf >= 50 ? '#1a1500' : '#1a0707';
-      html += '<div class="card" onclick="openCard(' + i + ')">';
-      html += '<div class="chead"><span class="cname">version</span><span class="vbadge">' + c.version + '</span></div>';
-      html += '<div class="cdesc">' + c.description + '</div>';
-      html += '<div class="cstats">';
-      html += '<div class="cs"><div class="cv">' + c.total + '</div><div class="cl">Signals</div></div>';
-      html += '<div class="cs"><div class="cv">' + c.symCount + '</div><div class="cl">Symbols</div></div>';
-      html += '<div class="cs"><div class="cv" style="color:' + wrc + ';background:' + wrbg + ';padding:2px 7px;border-radius:5px">' + c.wr + '%</div><div class="cl">Win Rate</div></div>';
-      html += '</div>';
-      if (c.notes) html += '<div class="cnotes">' + c.notes + '</div>';
-      html += '</div>';
+function renderHome(){
+  var groups={},order=[];
+  CARDS.forEach(function(c,i){if(!groups[c.stratLabel]){groups[c.stratLabel]=[];order.push(c.stratLabel);}groups[c.stratLabel].push({card:c,idx:i});});
+  document.getElementById('home-sub').textContent=order.length+' strategies \xb7 '+CARDS.length+' versions \xb7 click a card to see full config';
+  var html='';
+  order.forEach(function(label){
+    var items=groups[label];
+    html+='<div class="strat-group">';
+    html+='<div class="strat-heading"><h2>'+label+'</h2><span class="strat-count">'+items.length+' version'+(items.length>1?'s':'')+'</span>';
+    if(items.length>1) html+='<a href="compare.html?s='+encodeURIComponent(label)+'" class="compare-btn">⇄ Compare versions</a>';
+    html+='</div><div class="grid">';
+    items.forEach(function(item){
+      var c=item.card,i=item.idx,isLatest=(item===items[items.length-1]);
+      var wrf=parseFloat(c.wr),wrc=wrf>=60?'#22cc66':wrf>=50?'#ffc107':'#ff5555',wrbg=wrf>=60?'#071a0f':wrf>=50?'#1a1500':'#1a0707';
+      html+='<div class="card'+(c.total==null?' no-data':'')+'" onclick="openCard('+i+')">';
+      html+='<div class="chead"><span class="cname">version</span><span class="vbadge'+(isLatest?' latest':'')+'">'+c.version+(isLatest?' ★':' ')+'</span></div>';
+      html+='<div class="cdesc">'+c.description+'</div>';
+      if(c.total!=null){
+        html+='<div class="cstats"><div class="cs"><div class="cv">'+c.total+'</div><div class="cl">Signals</div></div><div class="cs"><div class="cv">'+c.symCount+'</div><div class="cl">Symbols</div></div><div class="cs"><div class="cv" style="color:'+wrc+';background:'+wrbg+';padding:2px 8px;border-radius:5px">'+c.wr+'%</div><div class="cl">Win Rate</div></div></div>';
+      } else {
+        html+='<div class="no-stats">Backtest not run yet</div>';
+      }
+      if(c.notes) html+='<div class="cnotes">'+c.notes+'</div>';
+      html+='</div>';
     });
-    html += '</div></div>';
+    html+='</div></div>';
   });
-
-  document.getElementById('home-groups').innerHTML = html;
+  document.getElementById('home-groups').innerHTML=html;
 }
 
-function goHome() {
-  document.getElementById('screen-detail').style.display = 'none';
-  document.getElementById('screen-home').style.display   = '';
-  window.scrollTo(0, 0);
+function goHome(){
+  document.getElementById('screen-detail').style.display='none';
+  document.getElementById('screen-home').style.display='';
+  window.scrollTo(0,0);
 }
 
-function openCard(i) {
-  const c = CARDS[i];
-  document.getElementById('screen-home').style.display   = 'none';
-  document.getElementById('screen-detail').style.display = 'block';
-  window.scrollTo(0, 0);
-
-  const badge = c.version ? '<span class="vbadge">' + c.version + '</span>' : '';
-  document.getElementById('d-head').innerHTML =
-    '<h1>' + c.stratLabel + ' ' + badge + '</h1>' +
-    (c.description ? '<div class="ddesc">' + c.description + '</div>' : '') +
-    (c.notes       ? '<div class="dnotes">' + c.notes + '</div>'       : '') +
-    (c.fromDate    ? '<div class="drange"><span>' + c.fromDate + '</span> &rarr; <span>' + c.toDate + '</span></div>' : '');
-
-  const wrf  = parseFloat(c.wr);
-  const wrc  = wrf >= 60 ? '#00cc55' : wrf >= 50 ? '#ffc107' : '#ff4444';
-  const wrbg = wrf >= 60 ? '#071a0f' : wrf >= 50 ? '#1a1500' : '#1a0707';
-  const open = c.total - c.wins - c.sl;
-  document.getElementById('d-stats').innerHTML =
-    sbar(c.total,   'Signals') +
-    sbar(c.symCount,'Symbols') +
-    '<div class="sbar"><div class="sv" style="color:' + wrc + ';background:' + wrbg + ';padding:4px 12px;border-radius:7px;font-size:1.4rem">' + c.wr + '%</div><div class="sl2">Win Rate</div></div>' +
-    sbar(c.wins, 'Wins',    '#00cc55') +
-    sbar(c.sl,   'SL Hits', '#ff4444') +
-    (open > 0 ? sbar(open, 'Open', '#888') : '');
-
-  document.getElementById('d-body').innerHTML =
-    c.config ? renderConfig(c.config) : '<p style="color:#555;padding:16px 0">No config available</p>';
-
-  const cta = document.getElementById('d-cta');
-  if (c.hasCharts) {
-    cta.href = c.folder + '/index.html';
-    cta.textContent = 'View Stocks →';
-    cta.classList.remove('disabled');
+function openCard(i){
+  var c=CARDS[i];
+  document.getElementById('screen-home').style.display='none';
+  document.getElementById('screen-detail').style.display='block';
+  window.scrollTo(0,0);
+  var badge=c.version?'<span class="vbadge">'+c.version+'</span>':'';
+  document.getElementById('d-head').innerHTML='<h1>'+c.stratLabel+' '+badge+'</h1>'+(c.description?'<div class="ddesc">'+c.description+'</div>':'')+(c.notes?'<div class="dnotes">'+c.notes+'</div>':'')+(c.fromDate?'<div class="drange"><span>'+c.fromDate+'</span> → <span>'+c.toDate+'</span></div>':'');
+  if(c.total!=null){
+    var wrf=parseFloat(c.wr),wrc=wrf>=60?'#22cc66':wrf>=50?'#ffc107':'#ff5555',wrbg=wrf>=60?'#071a0f':wrf>=50?'#1a1500':'#1a0707';
+    var open=c.total-c.wins-c.sl;
+    document.getElementById('d-stats').innerHTML=sb(c.total,'Signals')+sb(c.symCount,'Symbols')+'<div class="sbar"><div class="sv" style="color:'+wrc+';background:'+wrbg+';padding:4px 12px;border-radius:7px;font-size:1.4rem">'+c.wr+'%</div><div class="sl2">Win Rate</div></div>'+sb(c.wins,'Wins','#22cc66')+sb(c.sl,'SL Hits','#ff5555')+(open>0?sb(open,'Open','#aaa'):'');
   } else {
-    cta.href = '#';
-    cta.textContent = 'Charts not generated yet';
-    cta.classList.add('disabled');
+    document.getElementById('d-stats').innerHTML='<div style="color:#888;font-size:.88rem;padding:14px 0">No backtest results yet for this version.</div>';
   }
+  document.getElementById('d-body').innerHTML=c.config?renderConfig(c.config):'';
+  var cta=document.getElementById('d-cta');
+  if(c.hasCharts){cta.href=c.folder+'/index.html';cta.textContent='View Stocks →';cta.classList.remove('disabled');}
+  else{cta.href='#';cta.textContent='Charts not generated yet';cta.classList.add('disabled');}
 }
 
-function sbar(v, label, col) {
-  return '<div class="sbar"><div class="sv"' + (col ? ' style="color:' + col + '"' : '') + '>' + v + '</div><div class="sl2">' + label + '</div></div>';
-}
-function row(k, v) {
-  return '<div class="info-row"><span class="ik">' + k + '</span><span class="iv">' + v + '</span></div>';
-}
-function section(title, rows) {
-  if (!rows.length) return '';
-  return '<div class="info-section"><div class="info-title">' + title + '</div><div class="info-rows">' + rows.join('') + '</div></div>';
+function sb(v,label,col){return '<div class="sbar"><div class="sv"'+(col?' style="color:'+col+'"':'')+'>'+v+'</div><div class="sl2">'+label+'</div></div>';}
+function row(k,v){return '<div class="info-row"><span class="ik">'+k+'</span><span class="iv">'+v+'</span></div>';}
+function sec(title,rows){if(!rows.length)return '';return '<div class="info-section"><div class="info-title">'+title+'</div><div class="info-rows">'+rows.join('')+'</div></div>';}
+
+function renderConfig(cfg){
+  var s=[];
+  var r=[];
+  if(cfg.TIMEFRAMES) r.push(row('Timeframes',cfg.TIMEFRAMES.map(function(t){return t.replace('minute',' min');}).join(' \xb7 ')));
+  r.push(row('Signal mode',cfg.SKIP_CONFIRMED?'PENDING — buy-stop above pattern high':cfg.REQUIRE_BULLISH_ENTRY?'CONFIRMED — entry at open of bullish C3':'PENDING + CONFIRMED'));
+  if(cfg.BREAKOUT_BUFFER_PCT!==undefined) r.push(row('Breakout buffer',cfg.BREAKOUT_BUFFER_PCT+'%'));
+  if(cfg.EOD_CUTOFF_HOUR) r.push(row('EOD cutoff','No new signals after '+cfg.EOD_CUTOFF_HOUR+':00 IST'));
+  s.push(sec('Entry',r));
+
+  r=[];
+  if(cfg.SL_BUFFER_PCT!==undefined) r.push(row('SL buffer',cfg.SL_BUFFER_PCT+'% below pattern low'));
+  if(cfg.MIN_RISK_PCT!==undefined) r.push(row('Min risk per trade',cfg.MIN_RISK_PCT+'%'));
+  if(cfg.MAX_RISK_PCT!==undefined) r.push(row('Max risk per trade',cfg.MAX_RISK_PCT+'%'));
+  s.push(sec('Risk',r));
+
+  r=[];
+  if(cfg.T1_RR) r.push(row('T1',cfg.T1_RR+'R'));
+  if(cfg.T2_RR) r.push(row('T2',cfg.T2_RR+'R'));
+  if(cfg.T3_RR) r.push(row('T3',cfg.T3_RR+'R'));
+  if(cfg.TRAILING_ACTIVATION_RR) r.push(row('Trailing activates','after '+cfg.TRAILING_ACTIVATION_RR+'R'));
+  if(cfg.TRAILING_STOP_PCT) r.push(row('Trailing step',cfg.TRAILING_STOP_PCT+'%'));
+  if(cfg.PARTIAL_BOOKING_PCT&&cfg.PARTIAL_BOOKING_RR) r.push(row('Partial exit',cfg.PARTIAL_BOOKING_PCT+'% at '+cfg.PARTIAL_BOOKING_RR+'R'));
+  if(cfg.MIN_RR_RATIO) r.push(row('Min R:R required',cfg.MIN_RR_RATIO+'R'));
+  if(cfg.TRADE_PARAMS){Object.keys(cfg.TRADE_PARAMS).forEach(function(tf){var p=cfg.TRADE_PARAMS[tf],lbl=tf.replace('minute',' min'),t=[p.t1R&&'T1='+p.t1R+'R',p.t2R&&'T2='+p.t2R+'R',p.t3R&&'T3='+p.t3R+'R'].filter(Boolean).join(' \xb7 ');r.push(row(lbl,t+(p.maxHoldCandles?' \xb7 max '+p.maxHoldCandles+' candles':'')));});}
+  s.push(sec('Targets',r));
+
+  r=[];
+  if(cfg.REQUIRE_EMA_TREND_FILTER) r.push(row('Trend (EMA)','EMA'+cfg.EMA_SHORT+' declining AND EMA'+cfg.EMA_SHORT+' < EMA'+cfg.EMA_LONG+' (lookback '+cfg.EMA_DECLINE_LOOKBACK+')'));
+  if(cfg.EMA_SHORT&&!cfg.REQUIRE_EMA_TREND_FILTER) r.push(row('Trend (EMA)','EMA'+cfg.EMA_SHORT+' < EMA'+cfg.EMA_LONG+' + declining (lookback '+cfg.EMA_DECLINE_LOOKBACK+')'));
+  if(cfg.DECLINE_BY_INTERVAL&&!cfg.EMA_SHORT){Object.keys(cfg.DECLINE_BY_INTERVAL).forEach(function(tf){r.push(row('Prior decline ('+tf.replace('minute',' min')+')','>='+cfg.DECLINE_BY_INTERVAL[tf]+'% over '+cfg.TREND_LOOKBACK+' candles'));});}
+  if(cfg.REQUIRE_RSI_FILTER!==undefined) r.push(row('RSI',(cfg.REQUIRE_RSI_FILTER?'':'[off] ')+cfg.RSI_MIN+' – '+cfg.RSI_MAX+' (period '+cfg.RSI_PERIOD+')'));
+  else if(cfg.RSI_MIN!==undefined) r.push(row('RSI',cfg.RSI_MIN+' – '+cfg.RSI_MAX+' (period '+cfg.RSI_PERIOD+')'));
+  if(cfg.REQUIRE_ADX_FILTER!==undefined){var as=(cfg.ADX_MIN!==undefined?cfg.ADX_MIN+' – '+cfg.ADX_MAX:cfg.ADX_THRESHOLD+' – '+cfg.ADX_MAX);r.push(row('ADX',(cfg.REQUIRE_ADX_FILTER?'':'[off] ')+as+(cfg.REQUIRE_ADX_RISING?' \xb7 must be rising':'')+' (period '+cfg.ADX_PERIOD+')'));}
+  else if(cfg.ADX_THRESHOLD!==undefined){var as2=(cfg.ADX_MAX!==undefined?cfg.ADX_THRESHOLD+' – '+cfg.ADX_MAX:'>= '+cfg.ADX_THRESHOLD);r.push(row('ADX',as2+(cfg.REQUIRE_ADX_RISING?' \xb7 must be rising':'')+' (period '+cfg.ADX_PERIOD+')'));}
+  if(cfg.ATR_MIN_THRESHOLD_PCT!==undefined) r.push(row('ATR min',cfg.ATR_MIN_THRESHOLD_PCT+'% of price'));
+  if(cfg.REQUIRE_SUPPORT_FILTER) r.push(row('Support','Low within '+(cfg.SUPPORT_PROXIMITY_PCT*100)+'% of swing low (lookback '+cfg.SWING_LOOKBACK+')'));
+  else if(cfg.SUPPORT_ZONE_PCT!==undefined) r.push(row('Support zone','\xb1'+cfg.SUPPORT_ZONE_PCT+'% of swing low (lookback '+cfg.SWING_LOOKBACK+')'));
+  if(cfg.MIN_VOLUME_MULTIPLE) r.push(row('Volume','>='+cfg.MIN_VOLUME_MULTIPLE+'x '+cfg.VOLUME_LOOKBACK+'-candle avg'));
+  else if(cfg.VOLUME_MA_PERIOD) r.push(row('Volume MA',cfg.VOLUME_MA_PERIOD+'-candle avg (no threshold)'));
+  s.push(sec('Filters',r));
+
+  r=[];
+  if(cfg.LOW_TOLERANCE_PCT!==undefined) r.push(row('Equal-low tolerance',cfg.LOW_TOLERANCE_PCT+'%'));
+  if(cfg.STRONG_BODY_RATIO!==undefined) r.push(row('Strong body','>='+(cfg.STRONG_BODY_RATIO*100)+'% of range'));
+  if(cfg.REQUIRE_STRONG_C1!==undefined) r.push(row('C1 body',cfg.REQUIRE_STRONG_C1?'Strong >=60%':'Normal accepted'));
+  if(cfg.REQUIRE_STRONG_C2!==undefined) r.push(row('C2 body',cfg.REQUIRE_STRONG_C2?'Strong >=60%':'Normal accepted'));
+  if(cfg.DOJI_MAX_BODY_PCT!==undefined) r.push(row('Doji max body','<='+(cfg.DOJI_MAX_BODY_PCT*100)+'% of range'));
+  if(cfg.HAMMER_MIN_LOWER_WICK_PCT!==undefined) r.push(row('Hammer lower wick','>='+(cfg.HAMMER_MIN_LOWER_WICK_PCT*100)+'% of range'));
+  if(cfg.HAMMER_MAX_UPPER_WICK_PCT!==undefined) r.push(row('Hammer upper wick','<='+(cfg.HAMMER_MAX_UPPER_WICK_PCT*100)+'% of range'));
+  if(cfg.MIN_RANGE_PCT&&typeof cfg.MIN_RANGE_PCT==='object'){Object.keys(cfg.MIN_RANGE_PCT).forEach(function(tf){var v=cfg.MIN_RANGE_PCT[tf];r.push(row('Min size ('+tf.replace('minute',' min')+')','Doji >='+v.doji+'%, Hammer >='+v.hammer+'%'));});}
+  if(cfg.MIN_CANDLE_RANGE_PCT!==undefined) r.push(row('Min candle size',cfg.MIN_CANDLE_RANGE_PCT+'% of price'));
+  s.push(sec('Pattern',r));
+
+  return '<div class="info-grid">'+s.filter(Boolean).join('')+'</div>';
 }
 
-// Boot
 renderHome();
-
-function renderConfig(cfg) {
-  const sections = [];
-
-  // ── Entry ────────────────────────────────────────────────────────────────────
-  const r1 = [];
-  if (cfg.TIMEFRAMES && cfg.TIMEFRAMES.length)
-    r1.push(row('Timeframes', cfg.TIMEFRAMES.map(function(t){ return t.replace('minute',' min'); }).join(' · ')));
-  var mode = 'PENDING + CONFIRMED';
-  if (cfg.SKIP_CONFIRMED === true)    mode = 'PENDING only — buy-stop above C3 high';
-  else if (cfg.REQUIRE_BULLISH_ENTRY) mode = 'CONFIRMED — entry at open of bullish C3';
-  r1.push(row('Signal mode', mode));
-  if (cfg.BREAKOUT_BUFFER_PCT !== undefined) r1.push(row('Breakout buffer', cfg.BREAKOUT_BUFFER_PCT + '%'));
-  if (cfg.EOD_CUTOFF_HOUR) r1.push(row('EOD cutoff', 'No new signals after ' + cfg.EOD_CUTOFF_HOUR + ':00'));
-  sections.push(section('Entry', r1));
-
-  // ── Stop Loss ────────────────────────────────────────────────────────────────
-  const r2 = [];
-  if (cfg.SL_BUFFER_PCT !== undefined) r2.push(row('SL buffer', cfg.SL_BUFFER_PCT + '% of range below pattern low'));
-  if (cfg.MIN_RISK_PCT  !== undefined) r2.push(row('Min risk',  cfg.MIN_RISK_PCT  + '% per trade'));
-  if (cfg.MAX_RISK_PCT  !== undefined) r2.push(row('Max risk',  cfg.MAX_RISK_PCT  + '% per trade'));
-  sections.push(section('Stop Loss', r2));
-
-  // ── Targets ──────────────────────────────────────────────────────────────────
-  const r3 = [];
-  if (cfg.T1_RR) r3.push(row('T1', cfg.T1_RR + 'R'));
-  if (cfg.T2_RR) r3.push(row('T2', cfg.T2_RR + 'R'));
-  if (cfg.T3_RR) r3.push(row('T3', cfg.T3_RR + 'R'));
-  if (cfg.TRAILING_ACTIVATION_RR) r3.push(row('Trailing activates', 'after ' + cfg.TRAILING_ACTIVATION_RR + 'R'));
-  if (cfg.TRAILING_STOP_PCT)      r3.push(row('Trailing step', cfg.TRAILING_STOP_PCT + '%'));
-  if (cfg.PARTIAL_BOOKING_PCT && cfg.PARTIAL_BOOKING_RR)
-    r3.push(row('Partial exit', cfg.PARTIAL_BOOKING_PCT + '% of position at ' + cfg.PARTIAL_BOOKING_RR + 'R'));
-  if (cfg.MIN_RR_RATIO) r3.push(row('Min R:R to accept trade', cfg.MIN_RR_RATIO + 'R'));
-  if (cfg.TRADE_PARAMS) {
-    Object.keys(cfg.TRADE_PARAMS).forEach(function(tf) {
-      var p   = cfg.TRADE_PARAMS[tf];
-      var lbl = tf.replace('minute',' min');
-      var tgts = [
-        ('t1R' in p) && ('T1=' + p.t1R + 'R'),
-        ('t2R' in p) && ('T2=' + p.t2R + 'R'),
-        ('t3R' in p) && ('T3=' + p.t3R + 'R'),
-      ].filter(Boolean).join(' · ');
-      r3.push(row(lbl,
-        tgts +
-        (p.maxHoldCandles ? ' · max ' + p.maxHoldCandles + ' candles' : '') +
-        (p.slBuffer ? ' · SL buf ' + (p.slBuffer * 100) + '%' : '')
-      ));
-    });
-  }
-  sections.push(section('Targets', r3));
-
-  // ── Filters ──────────────────────────────────────────────────────────────────
-  const r4 = [];
-  if (cfg.RSI_MIN !== undefined && cfg.RSI_MAX !== undefined)
-    r4.push(row('RSI', cfg.RSI_MIN + ' – ' + cfg.RSI_MAX + ' (period ' + cfg.RSI_PERIOD + ')'));
-  if (cfg.ADX_THRESHOLD !== undefined) {
-    var adxStr = cfg.ADX_MAX !== undefined
-      ? cfg.ADX_THRESHOLD + ' – ' + cfg.ADX_MAX
-      : '≥ ' + cfg.ADX_THRESHOLD;
-    r4.push(row('ADX', adxStr + ' (period ' + cfg.ADX_PERIOD + ')'));
-  }
-  if (cfg.ATR_MIN_THRESHOLD_PCT !== undefined) r4.push(row('ATR min', cfg.ATR_MIN_THRESHOLD_PCT + '% of price'));
-  if (cfg.SUPPORT_ZONE_PCT !== undefined) r4.push(row('Support zone', '±' + cfg.SUPPORT_ZONE_PCT + '% around swing low'));
-  if (cfg.VOLUME_MA_PERIOD !== undefined) r4.push(row('Volume MA', cfg.VOLUME_MA_PERIOD + '-candle average'));
-  if (cfg.MIN_VOLUME_MULTIPLE)            r4.push(row('Volume filter', '≥ ' + cfg.MIN_VOLUME_MULTIPLE + '× average'));
-  if (cfg.SWING_LOOKBACK !== undefined)   r4.push(row('Swing lookback', cfg.SWING_LOOKBACK + ' candles'));
-  if (cfg.TREND_LOOKBACK !== undefined && !cfg.DECLINE_BY_INTERVAL)
-    r4.push(row('Trend lookback', cfg.TREND_LOOKBACK + ' candles'));
-  if (cfg.DECLINE_BY_INTERVAL) {
-    Object.keys(cfg.DECLINE_BY_INTERVAL).forEach(function(tf) {
-      r4.push(row(
-        'Prior decline (' + tf.replace('minute',' min') + ')',
-        '≥ ' + cfg.DECLINE_BY_INTERVAL[tf] + '% over ' + cfg.TREND_LOOKBACK + ' candles'
-      ));
-    });
-  }
-  sections.push(section('Filters', r4));
-
-  // ── Pattern ──────────────────────────────────────────────────────────────────
-  const r5 = [];
-  if (cfg.LOW_TOLERANCE_PCT !== undefined)
-    r5.push(row('Low tolerance', cfg.LOW_TOLERANCE_PCT + '% (how equal the two lows must be)'));
-  if (cfg.STRONG_BODY_RATIO !== undefined)
-    r5.push(row('Strong body', '≥ ' + (cfg.STRONG_BODY_RATIO * 100) + '% of candle range'));
-  if (cfg.NORMAL_BODY_MIN_RATIO !== undefined)
-    r5.push(row('Normal body min', '≥ ' + (cfg.NORMAL_BODY_MIN_RATIO * 100) + '% of range'));
-  if (cfg.MIN_CANDLE_RANGE_PCT !== undefined)
-    r5.push(row('Min candle size', cfg.MIN_CANDLE_RANGE_PCT + '% of price'));
-  if (cfg.REQUIRE_STRONG_C1 !== undefined)
-    r5.push(row('C1 body', cfg.REQUIRE_STRONG_C1 ? 'Must be strong (≥60%)' : 'Normal body accepted'));
-  if (cfg.REQUIRE_STRONG_C2 !== undefined)
-    r5.push(row('C2 body', cfg.REQUIRE_STRONG_C2 ? 'Must be strong (≥60%)' : 'Normal body accepted'));
-  if (cfg.DOJI_MAX_BODY_PCT !== undefined)
-    r5.push(row('Doji max body', '≤ ' + (cfg.DOJI_MAX_BODY_PCT * 100) + '% of range'));
-  if (cfg.HAMMER_MAX_BODY_PCT !== undefined)
-    r5.push(row('Hammer max body', '≤ ' + (cfg.HAMMER_MAX_BODY_PCT * 100) + '% of range'));
-  if (cfg.HAMMER_MIN_LOWER_WICK_PCT !== undefined)
-    r5.push(row('Hammer lower wick', '≥ ' + (cfg.HAMMER_MIN_LOWER_WICK_PCT * 100) + '% of range'));
-  if (cfg.HAMMER_MAX_UPPER_WICK_PCT !== undefined)
-    r5.push(row('Hammer upper wick', '≤ ' + (cfg.HAMMER_MAX_UPPER_WICK_PCT * 100) + '% of range'));
-  if (cfg.MIN_RANGE_PCT && typeof cfg.MIN_RANGE_PCT === 'object' && !Array.isArray(cfg.MIN_RANGE_PCT)) {
-    Object.keys(cfg.MIN_RANGE_PCT).forEach(function(tf) {
-      var v = cfg.MIN_RANGE_PCT[tf];
-      r5.push(row('Min size (' + tf.replace('minute',' min') + ')', 'Doji ≥ ' + v.doji + '%, Hammer ≥ ' + v.hammer + '%'));
-    });
-  }
-  sections.push(section('Pattern', r5));
-
-  return '<div class="info-grid">' + sections.filter(Boolean).join('') + '</div>';
-}
 </script>
 </body>
 </html>
