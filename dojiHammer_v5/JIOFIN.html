@@ -10,11 +10,11 @@ body{font-family:'Segoe UI',sans-serif;background:#0b0b0f;color:#ddd;padding:16p
 a.back{display:inline-block;margin-bottom:12px;color:#4da6ff;text-decoration:none;font-size:.84rem}
 a.back:hover{text-decoration:underline}
 h1{color:#f0f0f0;font-size:1.45rem;display:inline}
-.sub{color:#555;font-size:.82rem;margin-left:10px}
+.sub{color:#888;font-size:.82rem;margin-left:10px}
 .stats{display:flex;gap:10px;margin:12px 0;flex-wrap:wrap}
 .stat{background:#13131f;border:1px solid #222;border-radius:8px;padding:9px 16px;text-align:center;min-width:85px}
 .stat .v{font-size:1.35rem;font-weight:700}
-.stat .l{font-size:.7rem;color:#666;margin-top:1px}
+.stat .l{font-size:.7rem;color:#888;margin-top:1px}
 .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.75rem;color:#888;margin:6px 0 14px}
 .li{display:flex;align-items:center;gap:5px}
 .sq{width:10px;height:10px;border-radius:2px}
@@ -26,12 +26,12 @@ h1{color:#f0f0f0;font-size:1.45rem;display:inline}
 .toolbar{display:flex;gap:6px;padding:6px 8px;align-items:center;border-bottom:1px solid #1a1a2a}
 .btn{background:#191930;border:1px solid #2a2a40;color:#999;padding:3px 11px;border-radius:4px;cursor:pointer;font-size:.76rem}
 .btn:hover{background:#252545;color:#ddd}
-#sig-info{font-size:.75rem;color:#666;margin-left:8px;flex:1}
+#sig-info{font-size:.75rem;color:#888;margin-left:8px;flex:1}
 .chart-div{width:100%;height:500px}
 h2{font-size:.9rem;color:#777;margin:18px 0 6px;text-transform:uppercase;letter-spacing:.05em}
 .tbl-wrap{max-height:320px;overflow-y:auto;border:1px solid #1a1a2a;border-radius:4px}
 table{width:100%;border-collapse:collapse;font-size:.77rem}
-thead th{background:#13131f;color:#666;padding:6px 8px;position:sticky;top:0;z-index:2;white-space:nowrap;text-align:left;border-bottom:1px solid #222}
+thead th{background:#13131f;color:#888;padding:6px 8px;position:sticky;top:0;z-index:2;white-space:nowrap;text-align:left;border-bottom:1px solid #222}
 td{padding:5px 8px;border-bottom:1px solid #141418;white-space:nowrap}
 tr.sel td{box-shadow:inset 0 0 0 1px #4da6ff}
 tr:hover td{background:rgba(255,255,255,.03)!important}
@@ -57,7 +57,7 @@ tr:hover td{background:rgba(255,255,255,.03)!important}
   <div class="li"><span style="color:#ff4444">┄</span> SL</div>
   <div class="li"><span style="color:#00aa44">┄</span> T1</div>
   <div class="li"><span style="color:#006622">┄</span> T2</div>
-  <div class="li" style="color:#555">| Drag right axis to zoom Y &nbsp;| Click row → zoom + levels</div>
+  <div class="li" style="color:#888">| Drag right axis to zoom Y &nbsp;| Click row → zoom + levels</div>
 </div>
 
 <div class="tabs">
@@ -71,7 +71,7 @@ tr:hover td{background:rgba(255,255,255,.03)!important}
     <button class="btn" onclick="autoFitY('15min')">Auto Y</button>
     <button class="btn" onclick="fitAll('15min')">Fit All</button>
     <button class="btn" onclick="clearLevels('15min')">Clear Levels</button>
-    <span id="info-15min" style="font-size:.74rem;color:#555;margin-left:6px;flex:1"></span>
+    <span id="info-15min" style="font-size:.74rem;color:#888;margin-left:6px;flex:1"></span>
   </div>
   <div class="chart-div" id="chart-15min"></div>
 </div>
@@ -80,7 +80,7 @@ tr:hover td{background:rgba(255,255,255,.03)!important}
     <button class="btn" onclick="autoFitY('30min')">Auto Y</button>
     <button class="btn" onclick="fitAll('30min')">Fit All</button>
     <button class="btn" onclick="clearLevels('30min')">Clear Levels</button>
-    <span id="info-30min" style="font-size:.74rem;color:#555;margin-left:6px;flex:1"></span>
+    <span id="info-30min" style="font-size:.74rem;color:#888;margin-left:6px;flex:1"></span>
   </div>
   <div class="chart-div" id="chart-30min"></div>
 </div>
@@ -89,7 +89,7 @@ tr:hover td{background:rgba(255,255,255,.03)!important}
     <button class="btn" onclick="autoFitY('60min')">Auto Y</button>
     <button class="btn" onclick="fitAll('60min')">Fit All</button>
     <button class="btn" onclick="clearLevels('60min')">Clear Levels</button>
-    <span id="info-60min" style="font-size:.74rem;color:#555;margin-left:6px;flex:1"></span>
+    <span id="info-60min" style="font-size:.74rem;color:#888;margin-left:6px;flex:1"></span>
   </div>
   <div class="chart-div" id="chart-60min"></div>
 </div>
