@@ -138,6 +138,24 @@ var CARDS = [
     }
   },
   {
+    stratLabel:'Doji Hammer', version:'v5',
+    total:107, wins:68, sl:38, wr:'64.2', symCount:42,
+    config:{
+      TIMEFRAMES:['15minute','30minute','60minute'], LOOKBACK_CANDLES:50,
+      DOJI_MAX_BODY_PCT:0.30,
+      HAMMER_MIN_BODY_PCT:0.25, HAMMER_MAX_BODY_PCT:0.40,
+      HAMMER_MIN_LOWER_WICK_PCT:0.50, HAMMER_MAX_UPPER_WICK_PCT:0.20,
+      MIN_RANGE_PCT:{'15minute':{doji:0.15,hammer:0.25},'30minute':{doji:0.20,hammer:0.35},'60minute':{doji:0.25,hammer:0.40}},
+      TREND_LOOKBACK:5, DECLINE_BY_INTERVAL:{'15minute':0.15,'30minute':0.25,'60minute':0.50},
+      REQUIRE_BULLISH_ENTRY:true, REQUIRE_C3_ABOVE_HAMMER_HIGH:true,
+      ENTRY_RULE:'c2.high (hammer high — breakout level)',
+      SL_RULE:'min(hammer.low, doji.low) — no buffer',
+      MIN_VOLUME_MULTIPLE:1.0, VOLUME_LOOKBACK:10,
+      TRADE_PARAMS:{'15minute':{t1R:1.5,t2R:2.0,t3R:3.0,maxHoldCandles:5},'30minute':{t1R:1.5,t2R:2.0,t3R:3.0,maxHoldCandles:6},'60minute':{t1R:2.0,t2R:2.5,t3R:3.0,maxHoldCandles:5}},
+      MAX_RISK_PCT:20.0, EOD_CUTOFF_HOUR:15
+    }
+  },
+  {
     stratLabel:'Tweezer Bottom', version:'v1',
     total:1040, wins:517, sl:449, wr:'53.5', symCount:50,
     config:{
@@ -203,12 +221,12 @@ var CARDS = [
 // ── Grouped parameter order ──────────────────────────────────────────────────
 var GROUPS = [
   {name:'Timeframes & Lookback', keys:['TIMEFRAMES','LOOKBACK_CANDLES']},
-  {name:'Pattern Quality', keys:['DOJI_MAX_BODY_PCT','HAMMER_MIN_LOWER_WICK_PCT','HAMMER_MAX_UPPER_WICK_PCT','HAMMER_MAX_BODY_PCT','LOW_TOLERANCE_PCT','STRONG_BODY_RATIO','NORMAL_BODY_MIN_RATIO','MIN_CANDLE_RANGE_PCT','MIN_RANGE_PCT','REQUIRE_STRONG_C1','REQUIRE_STRONG_C2']},
+  {name:'Pattern Quality', keys:['DOJI_MAX_BODY_PCT','HAMMER_MIN_BODY_PCT','HAMMER_MIN_LOWER_WICK_PCT','HAMMER_MAX_UPPER_WICK_PCT','HAMMER_MAX_BODY_PCT','LOW_TOLERANCE_PCT','STRONG_BODY_RATIO','NORMAL_BODY_MIN_RATIO','MIN_CANDLE_RANGE_PCT','MIN_RANGE_PCT','REQUIRE_STRONG_C1','REQUIRE_STRONG_C2']},
   {name:'Trend Filter', keys:['REQUIRE_EMA_TREND_FILTER','EMA_SHORT','EMA_LONG','EMA_DECLINE_LOOKBACK','TREND_LOOKBACK','DECLINE_BY_INTERVAL','HTF_LOOKBACK_MULTIPLIER']},
   {name:'RSI', keys:['REQUIRE_RSI_FILTER','RSI_MIN','RSI_MAX','RSI_PERIOD']},
   {name:'ADX', keys:['REQUIRE_ADX_FILTER','ADX_THRESHOLD','ADX_MIN','ADX_MAX','ADX_PERIOD','REQUIRE_ADX_RISING']},
   {name:'Support & Volume', keys:['REQUIRE_SUPPORT_FILTER','SUPPORT_PROXIMITY_PCT','SUPPORT_ZONE_PCT','SWING_LOOKBACK','MIN_VOLUME_MULTIPLE','VOLUME_LOOKBACK','VOLUME_MA_PERIOD','ATR_PERIOD','ATR_MIN_THRESHOLD_PCT']},
-  {name:'Entry Conditions', keys:['REQUIRE_BULLISH_ENTRY','SKIP_CONFIRMED','REQUIRE_C3_ABOVE_HAMMER_HIGH','REQUIRE_C3_HIGH_BREAKOUT','BREAKOUT_BUFFER_PCT']},
+  {name:'Entry Conditions', keys:['REQUIRE_BULLISH_ENTRY','SKIP_CONFIRMED','REQUIRE_C3_ABOVE_HAMMER_HIGH','REQUIRE_C3_HIGH_BREAKOUT','BREAKOUT_BUFFER_PCT','ENTRY_RULE','SL_RULE']},
   {name:'Risk', keys:['MIN_RISK_PCT','MAX_RISK_PCT','SL_BUFFER_PCT']},
   {name:'Targets', keys:['T1_RR','T2_RR','T3_RR','TRAILING_ACTIVATION_RR','TRAILING_STOP_PCT','PARTIAL_BOOKING_RR','PARTIAL_BOOKING_PCT','MIN_RR_RATIO','TRADE_PARAMS']},
   {name:'EOD', keys:['SKIP_EOD_SIGNALS','EOD_CUTOFF_HOUR']},
