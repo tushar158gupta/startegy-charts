@@ -5,96 +5,132 @@
 <title>Backtest Dashboard</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',sans-serif;background:#0d0d14;color:#d0d0d8;min-height:100vh}
+body{font-family:'Segoe UI',sans-serif;background:#0b0b0f;color:#ddd;min-height:100vh}
 
-.wrap{max-width:1080px;margin:0 auto;padding:36px 28px 64px}
+/* ── Home screen ── */
+#screen-home{padding:30px}
+h1.main{font-size:1.5rem;color:#f0f0f0;margin-bottom:4px}
+.sub{color:#555;font-size:.85rem;display:block;margin-top:4px;margin-bottom:24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.card{background:#13131f;border:1px solid #222;border-radius:12px;padding:18px 20px;
+  cursor:pointer;color:#ddd;display:block;user-select:none;
+  transition:border-color .15s,background .15s,transform .12s}
+.card:hover{border-color:#4da6ff;background:#161625;transform:translateY(-2px);box-shadow:0 0 18px rgba(77,166,255,.18),0 4px 24px rgba(0,0,0,.4)}
+.chead{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.cname{font-size:1.1rem;font-weight:700;color:#f0f0f0}
+.vbadge{background:#1a1a3a;border:1px solid #3a3a6a;color:#7a9fff;font-size:.72rem;padding:2px 8px;border-radius:10px}
+.cdesc{color:#888;font-size:.77rem;margin-bottom:10px;line-height:1.45}
+.cstats{display:flex;gap:16px;margin:10px 0}
+.cs{display:flex;flex-direction:column;gap:3px}
+.cv{font-size:1.1rem;font-weight:700}
+.cl{font-size:.68rem;color:#555}
+.cnotes{color:#555;font-size:.72rem;margin-top:8px;padding-top:8px;border-top:1px solid #1a1a2a;line-height:1.4}
+.nocharts{color:#888;font-size:.72rem;margin-top:8px;background:#111;border:1px solid #1a1a1a;border-radius:4px;padding:5px 8px;font-family:monospace}
 
-/* ── Home ── */
-.pg-title{font-size:1.45rem;font-weight:700;color:#f2f2f2;margin-bottom:4px}
-.pg-sub{color:#888;font-size:.78rem;display:block;margin-bottom:32px}
-
-.group{margin-bottom:36px}
-.group-label{font-size:.63rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#aaa;
-  display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.group-label::after{content:'';flex:1;height:1px;background:#22222e}
-.cmp-btn{margin-left:10px;font-size:.65rem;font-weight:600;color:#5599ee;text-decoration:none;
-  background:#0e1e34;border:1px solid #1e3a60;border-radius:5px;padding:2px 10px;
-  text-transform:none;letter-spacing:0;white-space:nowrap;transition:background .15s,color .15s}
-.cmp-btn:hover{background:#162840;color:#88bbff}
-
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
-
-.card{background:#13131e;border:1px solid #22222e;border-radius:10px;padding:16px 18px;
-  cursor:pointer;display:flex;flex-direction:column;user-select:none;
-  transition:border-color .15s,background .15s}
-.card:hover{border-color:#3a5a9a;background:#15152a}
-
-.chead{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
-.cname{font-size:.95rem;font-weight:700;color:#eeeef4}
-.vbadge{background:#1a1a38;border:1px solid #2a2a58;color:#7a9aff;font-size:.65rem;
-  padding:2px 8px;border-radius:6px;font-weight:600;letter-spacing:.03em}
-
-.cdesc{color:#9a9aaa;font-size:.73rem;margin-bottom:12px;line-height:1.5}
-
-.cstats{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid #22222e;border-radius:7px;overflow:hidden}
-.cs{padding:9px 6px;text-align:center;border-right:1px solid #22222e}
-.cs:last-child{border-right:none}
-.cv{font-size:.95rem;font-weight:700;color:#d8d8e4}
-.cv.g{color:#22dd66}.cv.y{color:#ffbb00}.cv.r{color:#ff5555}
-.cl{font-size:.6rem;color:#888;margin-top:3px;text-transform:uppercase;letter-spacing:.05em}
-
-.cnotes{color:#999;font-size:.68rem;margin-top:10px;padding-top:9px;
-  border-top:1px solid #1e1e2a;line-height:1.5}
-
-/* ── Detail ── */
-#screen-detail{display:none;max-width:940px;margin:0 auto;padding:28px 28px 64px}
-
-.back-btn{background:none;border:none;color:#5599ee;cursor:pointer;font-size:.82rem;
-  padding:0;margin-bottom:20px;display:inline-flex;align-items:center;gap:4px}
-.back-btn:hover{color:#88bbff}
-
-.dcard{background:#13131e;border:1px solid #22222e;border-radius:12px;padding:22px 24px;margin-bottom:14px}
+/* ── Detail screen ── */
+#screen-detail{display:none;padding:20px 24px 48px;max-width:960px;margin:0 auto}
+.back-btn{background:none;border:none;color:#4da6ff;cursor:pointer;font-size:.82rem;
+  padding:0;margin-bottom:14px;display:inline-flex;align-items:center;gap:5px}
+.back-btn:hover{color:#7abfff;text-decoration:underline;text-shadow:0 0 10px rgba(77,166,255,.5)}
+.dcard{background:#13131f;border:1px solid #222;border-radius:14px;padding:20px 24px;margin-bottom:18px}
 .dcard-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
-.dhead h1{font-size:1.3rem;color:#f2f2f2;font-weight:700;display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap}
-.ddesc{color:#aaa;margin-top:10px;font-size:.8rem;line-height:1.55}
-.dnotes{color:#66aaff;margin-top:10px;font-size:.77rem;background:#0a1020;
-  border:1px solid #18304a;border-radius:6px;padding:6px 12px;display:inline-block}
-.drange{color:#888;font-size:.71rem;margin-top:10px;display:flex;align-items:center;gap:5px}
-.drange span{color:#aaa}
-
-.stats-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.sbar{flex:1;min-width:76px;background:#13131e;border:1px solid #22222e;border-radius:8px;padding:12px 8px;text-align:center}
-.sbar .sv{font-size:1.35rem;font-weight:700;line-height:1;color:#d8d8e4}
-.sbar .sl2{font-size:.58rem;color:#888;margin-top:5px;text-transform:uppercase;letter-spacing:.07em}
-
-.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-bottom:28px}
-.info-section{background:#13131e;border:1px solid #1e1e2c;border-radius:9px;overflow:hidden}
-.info-title{background:#0e0e1a;color:#7a9aff;font-size:.61rem;font-weight:700;
-  letter-spacing:.11em;text-transform:uppercase;padding:8px 14px;border-bottom:1px solid #1e1e2c}
+.dhead h1{font-size:1.5rem;color:#f0f0f0;font-weight:700;display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;line-height:1.2}
+.ddesc{color:#777;margin-top:10px;font-size:.83rem;line-height:1.55}
+.dnotes{color:#4da6ff;margin-top:8px;font-size:.79rem;background:#0a1520;border:1px solid #1a3a5a;border-radius:6px;padding:6px 12px;display:inline-block}
+.drange{color:#3a3a4a;font-size:.74rem;margin-top:10px;display:flex;align-items:center;gap:5px}
+.drange span{color:#4a4a6a}
+.stats-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.sbar{flex:1;min-width:82px;background:#13131f;border:1px solid #1e1e2e;border-radius:10px;padding:16px 10px;text-align:center}
+.sbar .sv{font-size:1.6rem;font-weight:700;line-height:1}
+.sbar .sl2{font-size:.63rem;color:#3a3a4a;margin-top:6px;text-transform:uppercase;letter-spacing:.07em}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;margin-bottom:28px}
+.info-section{background:#13131f;border:1px solid #1a1a2a;border-radius:10px;overflow:hidden}
+.info-title{background:#0c0c1a;color:#4a6aff;font-size:.65rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;padding:9px 14px;border-bottom:1px solid #1a1a2a}
 .info-rows{padding:2px 0}
-.info-row{display:flex;justify-content:space-between;align-items:baseline;
-  padding:6px 14px;gap:14px;border-bottom:1px solid rgba(255,255,255,.04)}
+.info-row{display:flex;justify-content:space-between;align-items:baseline;padding:7px 14px;gap:14px;border-bottom:1px solid rgba(255,255,255,.03)}
 .info-row:last-child{border-bottom:none}
-.ik{color:#999;font-size:.72rem;white-space:nowrap;flex-shrink:0}
-.iv{color:#ccc;font-size:.77rem;text-align:right}
-
-.cta-btn{display:inline-flex;align-items:center;gap:6px;background:#0e1e34;
-  border:1px solid #1e3a60;color:#5599ee;padding:9px 18px;border-radius:8px;
-  text-decoration:none;font-size:.83rem;font-weight:600;white-space:nowrap;flex-shrink:0;
-  transition:background .15s,border-color .15s}
-.cta-btn:hover{background:#162840;border-color:#3a6aaa;color:#88bbff}
-.cta-btn.disabled{opacity:.3;pointer-events:none}
+.info-row:hover{background:rgba(255,255,255,.018)}
+.ik{color:#444;font-size:.74rem;white-space:nowrap;flex-shrink:0}
+.iv{color:#bbb;font-size:.79rem;text-align:right}
+.cta-btn{display:inline-flex;align-items:center;gap:6px;background:#162d52;border:1px solid #1e4080;
+  color:#6aafff;padding:10px 20px;border-radius:8px;text-decoration:none;
+  font-size:.88rem;font-weight:600;white-space:nowrap;flex-shrink:0;
+  transition:background .15s,color .15s,border-color .15s}
+.cta-btn:hover{background:#1e4080;color:#fff;border-color:#4da6ff;box-shadow:0 0 20px rgba(77,166,255,.35)}
+.cta-btn.disabled{opacity:.3;pointer-events:none;cursor:default}
 </style>
 </head>
 <body>
 
 <!-- ── Home ── -->
 <div id="screen-home">
-  <div class="wrap">
-    <h1 class="pg-title">Backtest Dashboard</h1>
-    <span class="pg-sub" id="pg-sub"></span>
-    <div id="groups-container"></div>
-  </div>
+  <h1 class="main">Backtest Dashboard</h1>
+  <span class="sub">Click a strategy to see details · 7 results found</span>
+  <div class="grid"><div class="card" onclick="openCard(0)">
+      <div class="chead"><span class="cname">Doji Hammer</span><span class="vbadge">v1</span></div>
+      <div class="cdesc">Doji→Hammer · 15/30/60min · t1=1.5R t2=2R t3=3R · CONFIRMED mode</div>
+      <div class="cstats">
+        <div class="cs"><div class="cv">236</div><div class="cl">Signals</div></div>
+        <div class="cs"><div class="cv">50</div><div class="cl">Symbols</div></div>
+        <div class="cs"><div class="cv" style="color:#00cc55;background:#071a0f;padding:2px 7px;border-radius:5px">68.1%</div><div class="cl">Win Rate</div></div>
+      </div>
+      <div class="cnotes">Initial config</div>
+    </div><div class="card" onclick="openCard(1)">
+      <div class="chead"><span class="cname">Doji Hammer</span><span class="vbadge">v2</span></div>
+      <div class="cdesc">Doji→Hammer · 15/30/60min · t1=1.5R t2=2R t3=3R · CONFIRMED mode · strict upper wick</div>
+      <div class="cstats">
+        <div class="cs"><div class="cv">111</div><div class="cl">Signals</div></div>
+        <div class="cs"><div class="cv">46</div><div class="cl">Symbols</div></div>
+        <div class="cs"><div class="cv" style="color:#00cc55;background:#071a0f;padding:2px 7px;border-radius:5px">64.9%</div><div class="cl">Win Rate</div></div>
+      </div>
+      <div class="cnotes">Upper wick tightened from 25% → 10% of candle range — cleaner hammer rejections</div>
+    </div><div class="card" onclick="openCard(2)">
+      <div class="chead"><span class="cname">Doji Hammer</span><span class="vbadge">v3</span></div>
+      <div class="cdesc">Doji→Hammer · 15/30/60min · t1=1.5R t2=2R t3=3R · more signals · tight uw</div>
+      <div class="cstats">
+        <div class="cs"><div class="cv">339</div><div class="cl">Signals</div></div>
+        <div class="cs"><div class="cv">50</div><div class="cl">Symbols</div></div>
+        <div class="cs"><div class="cv" style="color:#ffc107;background:#1a1500;padding:2px 7px;border-radius:5px">59.0%</div><div class="cl">Win Rate</div></div>
+      </div>
+      <div class="cnotes">No c3-above-hammer-high req · relaxed downtrend/range thresholds · doji body 0.25→0.30 · upper wick kept at 10%</div>
+    </div><div class="card" onclick="openCard(3)">
+      <div class="chead"><span class="cname">Doji Hammer</span><span class="vbadge">v4</span></div>
+      <div class="cdesc">Doji→Hammer · 15/30/60min · EMA trend · support filter · RSI 35-50 · ADX 20-35 · max risk 1%</div>
+      <div class="cstats">
+        <div class="cs"><div class="cv">15</div><div class="cl">Signals</div></div>
+        <div class="cs"><div class="cv">14</div><div class="cl">Symbols</div></div>
+        <div class="cs"><div class="cv" style="color:#ff4444;background:#1a0707;padding:2px 7px;border-radius:5px">46.7%</div><div class="cl">Win Rate</div></div>
+      </div>
+      <div class="cnotes">EMA21<EMA50+declining · hammer low within 0.25% swing support · vol≥1.5x · lw≥60% · doji body≤15% · RSI/ADX filters added</div>
+    </div><div class="card" onclick="openCard(4)">
+      <div class="chead"><span class="cname">Doji Hammer</span><span class="vbadge">v5</span></div>
+      <div class="cdesc">Doji→Hammer · 15/30/60min · entry=hammer high · SL=min(hammer low, doji low) · doji body≤30% · uw≤20% · body 25–40%</div>
+      <div class="cstats">
+        <div class="cs"><div class="cv">107</div><div class="cl">Signals</div></div>
+        <div class="cs"><div class="cv">42</div><div class="cl">Symbols</div></div>
+        <div class="cs"><div class="cv" style="color:#00cc55;background:#071a0f;padding:2px 7px;border-radius:5px">64.2%</div><div class="cl">Win Rate</div></div>
+      </div>
+      <div class="cnotes">Entry at breakout level (c2.high) · SL is absolute min of both lows (no buffer) · hammer body bounded 25%–40% · upper wick tightened to 20%</div>
+    </div><div class="card" onclick="openCard(5)">
+      <div class="chead"><span class="cname">Tweezer Bottom</span><span class="vbadge">v1</span></div>
+      <div class="cdesc">RSI 25-45 · ADX 25-35 · T1=1.5R T2=2.5R · PENDING only · 15/30/60min</div>
+      <div class="cstats">
+        <div class="cs"><div class="cv">1040</div><div class="cl">Signals</div></div>
+        <div class="cs"><div class="cv">50</div><div class="cl">Symbols</div></div>
+        <div class="cs"><div class="cv" style="color:#ffc107;background:#1a1500;padding:2px 7px;border-radius:5px">53.5%</div><div class="cl">Win Rate</div></div>
+      </div>
+      <div class="cnotes">1040 signals · 53.5% win rate · 2.21x R:R · +0.51% EV/trade</div>
+    </div><div class="card" onclick="openCard(6)">
+      <div class="chead"><span class="cname">Tweezer Bottom</span><span class="vbadge">v2</span></div>
+      <div class="cdesc">RSI 25-40 · ADX 25-50 · T1=2R T2=3R · PENDING+CONFIRMED · 15/30min</div>
+      <div class="cstats">
+        <div class="cs"><div class="cv">198</div><div class="cl">Signals</div></div>
+        <div class="cs"><div class="cv">49</div><div class="cl">Symbols</div></div>
+        <div class="cs"><div class="cv" style="color:#ff4444;background:#1a0707;padding:2px 7px;border-radius:5px">48.9%</div><div class="cl">Win Rate</div></div>
+      </div>
+      <div class="cnotes">Higher targets, wider ADX band, stricter risk floor (1% min), normal C1 allowed</div>
+    </div></div>
 </div>
 
 <!-- ── Detail ── -->
@@ -103,10 +139,7 @@ body{font-family:'Segoe UI',sans-serif;background:#0d0d14;color:#d0d0d8;min-heig
   <div class="dcard">
     <div class="dcard-top">
       <div id="d-head" class="dhead"></div>
-      <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;flex-shrink:0">
-        <a id="d-cta" class="cta-btn" href="#">View Stocks &#8594;</a>
-        <a id="d-cmp" class="cta-btn" href="#" style="display:none;font-size:.76rem;padding:7px 14px;background:#0a180f;border-color:#122a18;color:#44aa66">Compare Versions</a>
-      </div>
+      <a id="d-cta" class="cta-btn" href="#">View Stocks &#8594;</a>
     </div>
   </div>
   <div id="d-stats" class="stats-bar"></div>
@@ -114,86 +147,43 @@ body{font-family:'Segoe UI',sans-serif;background:#0d0d14;color:#d0d0d8;min-heig
 </div>
 
 <script>
-const CARDS = [{"stratLabel":"Doji Hammer","version":"v1","total":236,"wins":160,"sl":75,"wr":"68.1","symCount":50,"description":"Doji→Hammer · 15/30/60min · t1=1.5R t2=2R t3=3R · CONFIRMED mode","notes":"Initial config","fromDate":"2025-06-16","toDate":"2026-06-05","folder":"dojiHammer_v1","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute","60minute"],"LOOKBACK_CANDLES":50,"DOJI_MAX_BODY_PCT":0.25,"HAMMER_MAX_BODY_PCT":0.4,"HAMMER_MIN_LOWER_WICK_PCT":0.5,"HAMMER_MAX_UPPER_WICK_PCT":0.25,"MIN_RANGE_PCT":{"15minute":{"doji":0.15,"hammer":0.25},"30minute":{"doji":0.2,"hammer":0.35},"60minute":{"doji":0.25,"hammer":0.4}},"DEFAULT_MIN_RANGE":{"doji":0.2,"hammer":0.3},"TREND_LOOKBACK":5,"DECLINE_BY_INTERVAL":{"15minute":0.15,"30minute":0.25,"60minute":0.5},"DEFAULT_DECLINE_PCT":0.5,"REQUIRE_BULLISH_ENTRY":true,"MIN_VOLUME_MULTIPLE":1,"VOLUME_LOOKBACK":10,"TRADE_PARAMS":{"15minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":5},"30minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":6},"60minute":{"slBuffer":0.05,"t1R":2,"t2R":2.5,"t3R":3,"maxHoldCandles":5}},"MINIMUM_RISK_PTS":0,"MAX_RISK_PCT":20,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15}},{"stratLabel":"Doji Hammer","version":"v2","total":111,"wins":72,"sl":39,"wr":"64.9","symCount":46,"description":"Doji→Hammer · 15/30/60min · t1=1.5R t2=2R t3=3R · CONFIRMED mode · strict upper wick","notes":"Upper wick tightened from 25% → 10% of candle range — cleaner hammer rejections","fromDate":"2025-06-16","toDate":"2026-06-03","folder":"dojiHammer_v2","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute","60minute"],"LOOKBACK_CANDLES":50,"DOJI_MAX_BODY_PCT":0.25,"HAMMER_MAX_BODY_PCT":0.4,"HAMMER_MIN_LOWER_WICK_PCT":0.5,"HAMMER_MAX_UPPER_WICK_PCT":0.1,"MIN_RANGE_PCT":{"15minute":{"doji":0.15,"hammer":0.25},"30minute":{"doji":0.2,"hammer":0.35},"60minute":{"doji":0.25,"hammer":0.4}},"DEFAULT_MIN_RANGE":{"doji":0.2,"hammer":0.3},"TREND_LOOKBACK":5,"DECLINE_BY_INTERVAL":{"15minute":0.15,"30minute":0.25,"60minute":0.5},"DEFAULT_DECLINE_PCT":0.5,"REQUIRE_BULLISH_ENTRY":true,"MIN_VOLUME_MULTIPLE":1,"VOLUME_LOOKBACK":10,"TRADE_PARAMS":{"15minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":5},"30minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":6},"60minute":{"slBuffer":0.05,"t1R":2,"t2R":2.5,"t3R":3,"maxHoldCandles":5}},"MINIMUM_RISK_PTS":0,"MAX_RISK_PCT":20,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15}},{"stratLabel":"Doji Hammer","version":"v3","total":339,"wins":200,"sl":139,"wr":"59.0","symCount":50,"description":"Doji→Hammer · 15/30/60min · t1=1.5R t2=2R t3=3R · more signals · tight uw","notes":"No c3-above-hammer-high req · relaxed downtrend/range thresholds · doji body 0.25→0.30 · upper wick kept at 10%","fromDate":"2025-06-11","toDate":"2026-06-03","folder":"dojiHammer_v3","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute","60minute"],"LOOKBACK_CANDLES":50,"DOJI_MAX_BODY_PCT":0.3,"HAMMER_MAX_BODY_PCT":0.4,"HAMMER_MIN_LOWER_WICK_PCT":0.5,"HAMMER_MAX_UPPER_WICK_PCT":0.1,"MIN_RANGE_PCT":{"15minute":{"doji":0.1,"hammer":0.18},"30minute":{"doji":0.12,"hammer":0.22},"60minute":{"doji":0.15,"hammer":0.28}},"DEFAULT_MIN_RANGE":{"doji":0.12,"hammer":0.2},"TREND_LOOKBACK":5,"DECLINE_BY_INTERVAL":{"15minute":0.08,"30minute":0.12,"60minute":0.25},"DEFAULT_DECLINE_PCT":0.25,"REQUIRE_BULLISH_ENTRY":true,"REQUIRE_C3_ABOVE_HAMMER_HIGH":false,"MIN_VOLUME_MULTIPLE":1,"VOLUME_LOOKBACK":10,"TRADE_PARAMS":{"15minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":5},"30minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":6},"60minute":{"slBuffer":0.05,"t1R":2,"t2R":2.5,"t3R":3,"maxHoldCandles":5}},"MINIMUM_RISK_PTS":0,"MAX_RISK_PCT":20,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15}},{"stratLabel":"Doji Hammer","version":"v4","total":15,"wins":7,"sl":8,"wr":"46.7","symCount":14,"description":"Doji→Hammer · 15/30/60min · EMA trend · support filter · RSI 35-50 · ADX 20-35 · max risk 1%","notes":"EMA21<EMA50+declining · hammer low within 0.25% swing support · vol≥1.5x · lw≥60% · doji body≤15% · RSI/ADX filters added","fromDate":"2025-06-17","toDate":"2026-05-20","folder":"dojiHammer_v4","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute","60minute"],"LOOKBACK_CANDLES":100,"DOJI_MAX_BODY_PCT":0.15,"HAMMER_MAX_BODY_PCT":0.4,"HAMMER_MIN_LOWER_WICK_PCT":0.6,"HAMMER_MAX_UPPER_WICK_PCT":0.1,"MIN_RANGE_PCT":{"15minute":{"doji":0.1,"hammer":0.18},"30minute":{"doji":0.12,"hammer":0.22},"60minute":{"doji":0.15,"hammer":0.28}},"DEFAULT_MIN_RANGE":{"doji":0.12,"hammer":0.2},"REQUIRE_EMA_TREND_FILTER":true,"EMA_SHORT":21,"EMA_LONG":50,"EMA_DECLINE_LOOKBACK":3,"TREND_LOOKBACK":5,"DECLINE_BY_INTERVAL":{"15minute":0.08,"30minute":0.12,"60minute":0.25},"DEFAULT_DECLINE_PCT":0.25,"REQUIRE_SUPPORT_FILTER":true,"SUPPORT_PROXIMITY_PCT":0.0025,"SWING_LOOKBACK":3,"REQUIRE_RSI_FILTER":true,"RSI_PERIOD":14,"RSI_MIN":35,"RSI_MAX":50,"REQUIRE_ADX_FILTER":true,"ADX_PERIOD":14,"ADX_MIN":20,"ADX_MAX":35,"REQUIRE_BULLISH_ENTRY":true,"REQUIRE_C3_HIGH_BREAKOUT":false,"MIN_VOLUME_MULTIPLE":1.5,"VOLUME_LOOKBACK":10,"TRADE_PARAMS":{"15minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":5},"30minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":6},"60minute":{"slBuffer":0.05,"t1R":2,"t2R":2.5,"t3R":3,"maxHoldCandles":5}},"MINIMUM_RISK_PTS":0,"MAX_RISK_PCT":1,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15}},{"stratLabel":"Doji Hammer","version":"v5","total":107,"wins":68,"sl":38,"wr":"64.2","symCount":42,"description":"Doji→Hammer · 15/30/60min · entry=hammer high · SL=min(hammer low, doji low) · doji body≤30% · uw≤20% · body 25–40%","notes":"Entry at breakout level (c2.high) · SL is absolute min of both lows (no buffer) · hammer body bounded 25%–40% · upper wick tightened to 20%","fromDate":"2025-06-16","toDate":"2026-06-05","folder":"dojiHammer_v5","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute","60minute"],"LOOKBACK_CANDLES":50,"DOJI_MAX_BODY_PCT":0.3,"HAMMER_MIN_BODY_PCT":0.25,"HAMMER_MAX_BODY_PCT":0.4,"HAMMER_MIN_LOWER_WICK_PCT":0.5,"HAMMER_MAX_UPPER_WICK_PCT":0.2,"MIN_RANGE_PCT":{"15minute":{"doji":0.15,"hammer":0.25},"30minute":{"doji":0.2,"hammer":0.35},"60minute":{"doji":0.25,"hammer":0.4}},"DEFAULT_MIN_RANGE":{"doji":0.2,"hammer":0.3},"TREND_LOOKBACK":5,"DECLINE_BY_INTERVAL":{"15minute":0.15,"30minute":0.25,"60minute":0.5},"DEFAULT_DECLINE_PCT":0.5,"REQUIRE_BULLISH_ENTRY":true,"MIN_VOLUME_MULTIPLE":1,"VOLUME_LOOKBACK":10,"TRADE_PARAMS":{"15minute":{"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":5},"30minute":{"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":6},"60minute":{"t1R":2,"t2R":2.5,"t3R":3,"maxHoldCandles":5}},"MINIMUM_RISK_PTS":0,"MAX_RISK_PCT":20,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15}},{"stratLabel":"Tweezer Bottom","version":"v1","total":1040,"wins":517,"sl":449,"wr":"53.5","symCount":50,"description":"RSI 25-45 · ADX 25-35 · T1=1.5R T2=2.5R · PENDING only · 15/30/60min","notes":"1040 signals · 53.5% win rate · 2.21x R:R · +0.51% EV/trade","fromDate":"2025-06-13","toDate":"2026-06-05","folder":"tweezerBottom_v1","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute","60minute"],"LOOKBACK_CANDLES":100,"LOW_TOLERANCE_PCT":0.15,"STRONG_BODY_RATIO":0.6,"NORMAL_BODY_MIN_RATIO":0.3,"MIN_CANDLE_RANGE_PCT":0.05,"REQUIRE_STRONG_C1":true,"REQUIRE_STRONG_C2":true,"TREND_LOOKBACK":20,"HTF_LOOKBACK_MULTIPLIER":4,"SWING_LOOKBACK":10,"SUPPORT_ZONE_PCT":0.25,"ATR_PERIOD":14,"ATR_MIN_THRESHOLD_PCT":0.3,"ADX_PERIOD":14,"ADX_THRESHOLD":25,"ADX_MAX":35,"RSI_PERIOD":14,"RSI_MIN":25,"RSI_MAX":45,"VOLUME_MA_PERIOD":20,"BREAKOUT_BUFFER_PCT":0,"SL_BUFFER_PCT":0.1,"MIN_RISK_PCT":0.5,"MAX_RISK_PCT":1.5,"T1_RR":1.5,"T2_RR":2.5,"MIN_RR_RATIO":1.5,"TRAILING_ACTIVATION_RR":1,"TRAILING_STOP_PCT":0.5,"PARTIAL_BOOKING_RR":2,"PARTIAL_BOOKING_PCT":50,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15,"SKIP_CONFIRMED":true}},{"stratLabel":"Tweezer Bottom","version":"v2","total":198,"wins":85,"sl":89,"wr":"48.9","symCount":49,"description":"RSI 25-40 · ADX 25-50 · T1=2R T2=3R · PENDING+CONFIRMED · 15/30min","notes":"Higher targets, wider ADX band, stricter risk floor (1% min), normal C1 allowed","fromDate":"2025-06-16","toDate":"2026-06-03","folder":"tweezerBottom_v2","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute"],"LOOKBACK_CANDLES":100,"LOW_TOLERANCE_PCT":0.15,"STRONG_BODY_RATIO":0.6,"NORMAL_BODY_MIN_RATIO":0.3,"MIN_CANDLE_RANGE_PCT":0.05,"REQUIRE_STRONG_C2":true,"TREND_LOOKBACK":20,"HTF_LOOKBACK_MULTIPLIER":4,"SWING_LOOKBACK":10,"SUPPORT_ZONE_PCT":0.5,"ATR_PERIOD":14,"ATR_MIN_THRESHOLD_PCT":0.3,"ADX_PERIOD":14,"ADX_THRESHOLD":25,"ADX_MAX":50,"RSI_PERIOD":14,"RSI_MIN":25,"RSI_MAX":40,"VOLUME_MA_PERIOD":20,"BREAKOUT_BUFFER_PCT":0,"SL_BUFFER_PCT":0.1,"MIN_RISK_PCT":1,"MAX_RISK_PCT":1.5,"T1_RR":2,"T2_RR":3,"MIN_RR_RATIO":1.5,"TRAILING_ACTIVATION_RR":1.5,"TRAILING_STOP_PCT":0.5,"PARTIAL_BOOKING_RR":2,"PARTIAL_BOOKING_PCT":50,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15}}];
+const CARDS = [{"stratLabel":"Doji Hammer","version":"v1","total":236,"wins":160,"sl":75,"wr":"68.1","symCount":50,"description":"Doji→Hammer · 15/30/60min · t1=1.5R t2=2R t3=3R · CONFIRMED mode","notes":"Initial config","fromDate":"2025-06-16","toDate":"2026-06-05","folder":"dojiHammer_v1","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute","60minute"],"LOOKBACK_CANDLES":50,"DOJI_MAX_BODY_PCT":0.25,"HAMMER_MAX_BODY_PCT":0.4,"HAMMER_MIN_LOWER_WICK_PCT":0.5,"HAMMER_MAX_UPPER_WICK_PCT":0.25,"MIN_RANGE_PCT":{"15minute":{"doji":0.15,"hammer":0.25},"30minute":{"doji":0.2,"hammer":0.35},"60minute":{"doji":0.25,"hammer":0.4}},"DEFAULT_MIN_RANGE":{"doji":0.2,"hammer":0.3},"TREND_LOOKBACK":5,"DECLINE_BY_INTERVAL":{"15minute":0.15,"30minute":0.25,"60minute":0.5},"DEFAULT_DECLINE_PCT":0.5,"REQUIRE_BULLISH_ENTRY":true,"MIN_VOLUME_MULTIPLE":1,"VOLUME_LOOKBACK":10,"TRADE_PARAMS":{"15minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":5},"30minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":6},"60minute":{"slBuffer":0.05,"t1R":2,"t2R":2.5,"t3R":3,"maxHoldCandles":5}},"MINIMUM_RISK_PTS":0,"MAX_RISK_PCT":20,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15}},{"stratLabel":"Doji Hammer","version":"v2","total":111,"wins":72,"sl":39,"wr":"64.9","symCount":46,"description":"Doji→Hammer · 15/30/60min · t1=1.5R t2=2R t3=3R · CONFIRMED mode · strict upper wick","notes":"Upper wick tightened from 25% → 10% of candle range — cleaner hammer rejections","fromDate":"2025-06-16","toDate":"2026-06-03","folder":"dojiHammer_v2","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute","60minute"],"LOOKBACK_CANDLES":50,"DOJI_MAX_BODY_PCT":0.25,"HAMMER_MAX_BODY_PCT":0.4,"HAMMER_MIN_LOWER_WICK_PCT":0.5,"HAMMER_MAX_UPPER_WICK_PCT":0.1,"MIN_RANGE_PCT":{"15minute":{"doji":0.15,"hammer":0.25},"30minute":{"doji":0.2,"hammer":0.35},"60minute":{"doji":0.25,"hammer":0.4}},"DEFAULT_MIN_RANGE":{"doji":0.2,"hammer":0.3},"TREND_LOOKBACK":5,"DECLINE_BY_INTERVAL":{"15minute":0.15,"30minute":0.25,"60minute":0.5},"DEFAULT_DECLINE_PCT":0.5,"REQUIRE_BULLISH_ENTRY":true,"MIN_VOLUME_MULTIPLE":1,"VOLUME_LOOKBACK":10,"TRADE_PARAMS":{"15minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":5},"30minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":6},"60minute":{"slBuffer":0.05,"t1R":2,"t2R":2.5,"t3R":3,"maxHoldCandles":5}},"MINIMUM_RISK_PTS":0,"MAX_RISK_PCT":20,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15}},{"stratLabel":"Doji Hammer","version":"v3","total":339,"wins":200,"sl":139,"wr":"59.0","symCount":50,"description":"Doji→Hammer · 15/30/60min · t1=1.5R t2=2R t3=3R · more signals · tight uw","notes":"No c3-above-hammer-high req · relaxed downtrend/range thresholds · doji body 0.25→0.30 · upper wick kept at 10%","fromDate":"2025-06-11","toDate":"2026-06-03","folder":"dojiHammer_v3","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute","60minute"],"LOOKBACK_CANDLES":50,"DOJI_MAX_BODY_PCT":0.3,"HAMMER_MAX_BODY_PCT":0.4,"HAMMER_MIN_LOWER_WICK_PCT":0.5,"HAMMER_MAX_UPPER_WICK_PCT":0.1,"MIN_RANGE_PCT":{"15minute":{"doji":0.1,"hammer":0.18},"30minute":{"doji":0.12,"hammer":0.22},"60minute":{"doji":0.15,"hammer":0.28}},"DEFAULT_MIN_RANGE":{"doji":0.12,"hammer":0.2},"TREND_LOOKBACK":5,"DECLINE_BY_INTERVAL":{"15minute":0.08,"30minute":0.12,"60minute":0.25},"DEFAULT_DECLINE_PCT":0.25,"REQUIRE_BULLISH_ENTRY":true,"REQUIRE_C3_ABOVE_HAMMER_HIGH":false,"MIN_VOLUME_MULTIPLE":1,"VOLUME_LOOKBACK":10,"TRADE_PARAMS":{"15minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":5},"30minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":6},"60minute":{"slBuffer":0.05,"t1R":2,"t2R":2.5,"t3R":3,"maxHoldCandles":5}},"MINIMUM_RISK_PTS":0,"MAX_RISK_PCT":20,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15}},{"stratLabel":"Doji Hammer","version":"v4","total":15,"wins":7,"sl":8,"wr":"46.7","symCount":14,"description":"Doji→Hammer · 15/30/60min · EMA trend · support filter · RSI 35-50 · ADX 20-35 · max risk 1%","notes":"EMA21<EMA50+declining · hammer low within 0.25% swing support · vol≥1.5x · lw≥60% · doji body≤15% · RSI/ADX filters added","fromDate":"2025-06-17","toDate":"2026-05-20","folder":"dojiHammer_v4","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute","60minute"],"LOOKBACK_CANDLES":100,"DOJI_MAX_BODY_PCT":0.15,"HAMMER_MAX_BODY_PCT":0.4,"HAMMER_MIN_LOWER_WICK_PCT":0.6,"HAMMER_MAX_UPPER_WICK_PCT":0.1,"MIN_RANGE_PCT":{"15minute":{"doji":0.1,"hammer":0.18},"30minute":{"doji":0.12,"hammer":0.22},"60minute":{"doji":0.15,"hammer":0.28}},"DEFAULT_MIN_RANGE":{"doji":0.12,"hammer":0.2},"REQUIRE_EMA_TREND_FILTER":true,"EMA_SHORT":21,"EMA_LONG":50,"EMA_DECLINE_LOOKBACK":3,"TREND_LOOKBACK":5,"DECLINE_BY_INTERVAL":{"15minute":0.08,"30minute":0.12,"60minute":0.25},"DEFAULT_DECLINE_PCT":0.25,"REQUIRE_SUPPORT_FILTER":true,"SUPPORT_PROXIMITY_PCT":0.0025,"SWING_LOOKBACK":3,"REQUIRE_RSI_FILTER":true,"RSI_PERIOD":14,"RSI_MIN":35,"RSI_MAX":50,"REQUIRE_ADX_FILTER":true,"ADX_PERIOD":14,"ADX_MIN":20,"ADX_MAX":35,"REQUIRE_BULLISH_ENTRY":true,"REQUIRE_C3_HIGH_BREAKOUT":false,"MIN_VOLUME_MULTIPLE":1.5,"VOLUME_LOOKBACK":10,"TRADE_PARAMS":{"15minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":5},"30minute":{"slBuffer":0.05,"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":6},"60minute":{"slBuffer":0.05,"t1R":2,"t2R":2.5,"t3R":3,"maxHoldCandles":5}},"MINIMUM_RISK_PTS":0,"MAX_RISK_PCT":1,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15}},{"stratLabel":"Doji Hammer","version":"v5","total":107,"wins":68,"sl":38,"wr":"64.2","symCount":42,"description":"Doji→Hammer · 15/30/60min · entry=hammer high · SL=min(hammer low, doji low) · doji body≤30% · uw≤20% · body 25–40%","notes":"Entry at breakout level (c2.high) · SL is absolute min of both lows (no buffer) · hammer body bounded 25%–40% · upper wick tightened to 20%","fromDate":"2025-06-16","toDate":"2026-06-05","folder":"dojiHammer_v5","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute","60minute"],"LOOKBACK_CANDLES":50,"DOJI_MAX_BODY_PCT":0.3,"HAMMER_MIN_BODY_PCT":0.25,"HAMMER_MAX_BODY_PCT":0.4,"HAMMER_MIN_LOWER_WICK_PCT":0.5,"HAMMER_MAX_UPPER_WICK_PCT":0.2,"MIN_RANGE_PCT":{"15minute":{"doji":0.15,"hammer":0.25},"30minute":{"doji":0.2,"hammer":0.35},"60minute":{"doji":0.25,"hammer":0.4}},"DEFAULT_MIN_RANGE":{"doji":0.2,"hammer":0.3},"TREND_LOOKBACK":5,"DECLINE_BY_INTERVAL":{"15minute":0.15,"30minute":0.25,"60minute":0.5},"DEFAULT_DECLINE_PCT":0.5,"REQUIRE_BULLISH_ENTRY":true,"MIN_VOLUME_MULTIPLE":1,"VOLUME_LOOKBACK":10,"SL_BUFFER_PCT":0.05,"TRADE_PARAMS":{"15minute":{"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":5},"30minute":{"t1R":1.5,"t2R":2,"t3R":3,"maxHoldCandles":6},"60minute":{"t1R":2,"t2R":2.5,"t3R":3,"maxHoldCandles":5}},"MINIMUM_RISK_PTS":0,"MAX_RISK_PCT":20,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15}},{"stratLabel":"Tweezer Bottom","version":"v1","total":1040,"wins":517,"sl":449,"wr":"53.5","symCount":50,"description":"RSI 25-45 · ADX 25-35 · T1=1.5R T2=2.5R · PENDING only · 15/30/60min","notes":"1040 signals · 53.5% win rate · 2.21x R:R · +0.51% EV/trade","fromDate":"2025-06-13","toDate":"2026-06-05","folder":"tweezerBottom_v1","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute","60minute"],"LOOKBACK_CANDLES":100,"LOW_TOLERANCE_PCT":0.15,"STRONG_BODY_RATIO":0.6,"NORMAL_BODY_MIN_RATIO":0.3,"MIN_CANDLE_RANGE_PCT":0.05,"REQUIRE_STRONG_C1":true,"REQUIRE_STRONG_C2":true,"TREND_LOOKBACK":20,"HTF_LOOKBACK_MULTIPLIER":4,"SWING_LOOKBACK":10,"SUPPORT_ZONE_PCT":0.25,"ATR_PERIOD":14,"ATR_MIN_THRESHOLD_PCT":0.3,"ADX_PERIOD":14,"ADX_THRESHOLD":25,"ADX_MAX":35,"RSI_PERIOD":14,"RSI_MIN":25,"RSI_MAX":45,"VOLUME_MA_PERIOD":20,"BREAKOUT_BUFFER_PCT":0,"SL_BUFFER_PCT":0.1,"MIN_RISK_PCT":0.5,"MAX_RISK_PCT":1.5,"T1_RR":1.5,"T2_RR":2.5,"MIN_RR_RATIO":1.5,"TRAILING_ACTIVATION_RR":1,"TRAILING_STOP_PCT":0.5,"PARTIAL_BOOKING_RR":2,"PARTIAL_BOOKING_PCT":50,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15,"SKIP_CONFIRMED":true}},{"stratLabel":"Tweezer Bottom","version":"v2","total":198,"wins":85,"sl":89,"wr":"48.9","symCount":49,"description":"RSI 25-40 · ADX 25-50 · T1=2R T2=3R · PENDING+CONFIRMED · 15/30min","notes":"Higher targets, wider ADX band, stricter risk floor (1% min), normal C1 allowed","fromDate":"2025-06-16","toDate":"2026-06-03","folder":"tweezerBottom_v2","hasCharts":true,"config":{"TIMEFRAMES":["15minute","30minute"],"LOOKBACK_CANDLES":100,"LOW_TOLERANCE_PCT":0.15,"STRONG_BODY_RATIO":0.6,"NORMAL_BODY_MIN_RATIO":0.3,"MIN_CANDLE_RANGE_PCT":0.05,"REQUIRE_STRONG_C2":true,"TREND_LOOKBACK":20,"HTF_LOOKBACK_MULTIPLIER":4,"SWING_LOOKBACK":10,"SUPPORT_ZONE_PCT":0.5,"ATR_PERIOD":14,"ATR_MIN_THRESHOLD_PCT":0.3,"ADX_PERIOD":14,"ADX_THRESHOLD":25,"ADX_MAX":50,"RSI_PERIOD":14,"RSI_MIN":25,"RSI_MAX":40,"VOLUME_MA_PERIOD":20,"BREAKOUT_BUFFER_PCT":0,"SL_BUFFER_PCT":0.1,"MIN_RISK_PCT":1,"MAX_RISK_PCT":1.5,"T1_RR":2,"T2_RR":3,"MIN_RR_RATIO":1.5,"TRAILING_ACTIVATION_RR":1.5,"TRAILING_STOP_PCT":0.5,"PARTIAL_BOOKING_RR":2,"PARTIAL_BOOKING_PCT":50,"SKIP_EOD_SIGNALS":true,"EOD_CUTOFF_HOUR":15}}];
 
-// ── Render home grouped by strategy ──────────────────────────────────────────
-(function renderHome() {
-  var order = [], seen = {};
-  CARDS.forEach(function(c) { if (!seen[c.stratLabel]) { seen[c.stratLabel] = true; order.push(c.stratLabel); } });
-
-  var container = document.getElementById('groups-container');
-  order.forEach(function(label) {
-    var items = CARDS.map(function(c,i){return{c:c,i:i};}).filter(function(x){return x.c.stratLabel===label;});
-    var groupEl = document.createElement('div');
-    groupEl.className = 'group';
-    var gridId = 'g-' + label.replace(/\s+/g,'');
-    var cmpBtn = items.length > 1
-      ? '<a href="compare.html?s=' + encodeURIComponent(label) + '" class="cmp-btn">Compare Versions</a>'
-      : '';
-    groupEl.innerHTML = '<div class="group-label">' + label + ' <span style="color:#555;font-weight:400;text-transform:none;letter-spacing:0;font-size:.7rem">— ' + items.length + ' version' + (items.length>1?'s':'') + '</span>' + cmpBtn + '</div><div class="grid" id="' + gridId + '"></div>';
-    container.appendChild(groupEl);
-
-    var grid = document.getElementById(gridId);
-    items.forEach(function(item) {
-      var c = item.c, i = item.i;
-      var wrf = parseFloat(c.wr);
-      var wrcls = wrf >= 60 ? 'g' : wrf >= 50 ? 'y' : 'r';
-      var div = document.createElement('div');
-      div.className = 'card';
-      div.onclick = function(){ openCard(i); };
-      div.innerHTML =
-        '<div class="chead"><span class="cname">' + c.stratLabel + '</span><span class="vbadge">' + c.version + '</span></div>' +
-        '<div class="cdesc">' + (c.description||'') + '</div>' +
-        '<div class="cstats">' +
-          '<div class="cs"><div class="cv">' + c.total + '</div><div class="cl">Signals</div></div>' +
-          '<div class="cs"><div class="cv">' + c.symCount + '</div><div class="cl">Symbols</div></div>' +
-          '<div class="cs"><div class="cv ' + wrcls + '">' + c.wr + '%</div><div class="cl">Win Rate</div></div>' +
-        '</div>' +
-        (c.notes ? '<div class="cnotes">' + c.notes + '</div>' : '');
-      grid.appendChild(div);
-    });
-  });
-
-  document.getElementById('pg-sub').textContent =
-    'Click a strategy to see details · ' + CARDS.length + ' versions · ' + order.length + ' strategies';
-}());
-
-// ── Navigation ────────────────────────────────────────────────────────────────
 function goHome() {
   document.getElementById('screen-detail').style.display = 'none';
   document.getElementById('screen-home').style.display   = '';
-  window.scrollTo(0,0);
+  window.scrollTo(0, 0);
 }
 
 function openCard(i) {
-  var c = CARDS[i];
+  const c = CARDS[i];
   document.getElementById('screen-home').style.display   = 'none';
   document.getElementById('screen-detail').style.display = 'block';
-  window.scrollTo(0,0);
+  window.scrollTo(0, 0);
 
-  var badge = c.version ? '<span class="vbadge">' + c.version + '</span>' : '';
+  const badge = c.version ? '<span class="vbadge">' + c.version + '</span>' : '';
   document.getElementById('d-head').innerHTML =
     '<h1>' + c.stratLabel + ' ' + badge + '</h1>' +
     (c.description ? '<div class="ddesc">' + c.description + '</div>' : '') +
-    (c.notes       ? '<div class="dnotes">' + c.notes + '</div>' : '') +
+    (c.notes       ? '<div class="dnotes">' + c.notes + '</div>'       : '') +
     (c.fromDate    ? '<div class="drange"><span>' + c.fromDate + '</span> &rarr; <span>' + c.toDate + '</span></div>' : '');
 
-  var wrf  = parseFloat(c.wr);
-  var wrc  = wrf >= 60 ? '#00c853' : wrf >= 50 ? '#ffb300' : '#ef5350';
-  var wrbg = wrf >= 60 ? '#041209' : wrf >= 50 ? '#130e00' : '#130404';
-  var open = c.total - c.wins - c.sl;
+  const wrf  = parseFloat(c.wr);
+  const wrc  = wrf >= 60 ? '#00cc55' : wrf >= 50 ? '#ffc107' : '#ff4444';
+  const wrbg = wrf >= 60 ? '#071a0f' : wrf >= 50 ? '#1a1500' : '#1a0707';
+  const open = c.total - c.wins - c.sl;
   document.getElementById('d-stats').innerHTML =
-    sbar(c.total,    'Signals') +
-    sbar(c.symCount, 'Symbols') +
-    '<div class="sbar"><div class="sv" style="color:' + wrc + ';background:' + wrbg + ';padding:3px 12px;border-radius:6px;font-size:1.25rem">' + c.wr + '%</div><div class="sl2">Win Rate</div></div>' +
-    sbar(c.wins, 'Wins',    '#00c853') +
-    sbar(c.sl,   'SL Hits', '#ef5350') +
-    (open > 0 ? sbar(open, 'Open', '#666') : '');
+    sbar(c.total,   'Signals') +
+    sbar(c.symCount,'Symbols') +
+    '<div class="sbar"><div class="sv" style="color:' + wrc + ';background:' + wrbg + ';padding:4px 12px;border-radius:7px;font-size:1.4rem">' + c.wr + '%</div><div class="sl2">Win Rate</div></div>' +
+    sbar(c.wins, 'Wins',    '#00cc55') +
+    sbar(c.sl,   'SL Hits', '#ff4444') +
+    (open > 0 ? sbar(open, 'Open', '#888') : '');
 
   document.getElementById('d-body').innerHTML =
-    c.config ? renderConfig(c.config) : '<p style="color:#333;padding:16px 0">No config available</p>';
+    c.config ? renderConfig(c.config) : '<p style="color:#555;padding:16px 0">No config available</p>';
 
-  var cta = document.getElementById('d-cta');
+  const cta = document.getElementById('d-cta');
   if (c.hasCharts) {
     cta.href = c.folder + '/index.html';
     cta.textContent = 'View Stocks →';
@@ -203,18 +193,8 @@ function openCard(i) {
     cta.textContent = 'Charts not generated yet';
     cta.classList.add('disabled');
   }
-
-  var siblings = CARDS.filter(function(x){ return x.stratLabel === c.stratLabel; });
-  var cmpBtn = document.getElementById('d-cmp');
-  if (siblings.length > 1) {
-    cmpBtn.href = 'compare.html?s=' + encodeURIComponent(c.stratLabel);
-    cmpBtn.style.display = 'inline-flex';
-  } else {
-    cmpBtn.style.display = 'none';
-  }
 }
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
 function sbar(v, label, col) {
   return '<div class="sbar"><div class="sv"' + (col ? ' style="color:' + col + '"' : '') + '>' + v + '</div><div class="sl2">' + label + '</div></div>';
 }
@@ -227,28 +207,29 @@ function section(title, rows) {
 }
 
 function renderConfig(cfg) {
-  var sections = [];
+  const sections = [];
 
-  var r1 = [];
+  // ── Entry ────────────────────────────────────────────────────────────────────
+  const r1 = [];
   if (cfg.TIMEFRAMES && cfg.TIMEFRAMES.length)
     r1.push(row('Timeframes', cfg.TIMEFRAMES.map(function(t){ return t.replace('minute',' min'); }).join(' · ')));
   var mode = 'PENDING + CONFIRMED';
   if (cfg.SKIP_CONFIRMED === true)    mode = 'PENDING only — buy-stop above C3 high';
   else if (cfg.REQUIRE_BULLISH_ENTRY) mode = 'CONFIRMED — entry at open of bullish C3';
   r1.push(row('Signal mode', mode));
-  if (cfg.ENTRY_RULE !== undefined) r1.push(row('Entry level', cfg.ENTRY_RULE));
-  if (cfg.SL_RULE    !== undefined) r1.push(row('SL rule',     cfg.SL_RULE));
   if (cfg.BREAKOUT_BUFFER_PCT !== undefined) r1.push(row('Breakout buffer', cfg.BREAKOUT_BUFFER_PCT + '%'));
   if (cfg.EOD_CUTOFF_HOUR) r1.push(row('EOD cutoff', 'No new signals after ' + cfg.EOD_CUTOFF_HOUR + ':00'));
   sections.push(section('Entry', r1));
 
-  var r2 = [];
+  // ── Stop Loss ────────────────────────────────────────────────────────────────
+  const r2 = [];
   if (cfg.SL_BUFFER_PCT !== undefined) r2.push(row('SL buffer', cfg.SL_BUFFER_PCT + '% of range below pattern low'));
   if (cfg.MIN_RISK_PCT  !== undefined) r2.push(row('Min risk',  cfg.MIN_RISK_PCT  + '% per trade'));
   if (cfg.MAX_RISK_PCT  !== undefined) r2.push(row('Max risk',  cfg.MAX_RISK_PCT  + '% per trade'));
   sections.push(section('Stop Loss', r2));
 
-  var r3 = [];
+  // ── Targets ──────────────────────────────────────────────────────────────────
+  const r3 = [];
   if (cfg.T1_RR) r3.push(row('T1', cfg.T1_RR + 'R'));
   if (cfg.T2_RR) r3.push(row('T2', cfg.T2_RR + 'R'));
   if (cfg.T3_RR) r3.push(row('T3', cfg.T3_RR + 'R'));
@@ -275,7 +256,8 @@ function renderConfig(cfg) {
   }
   sections.push(section('Targets', r3));
 
-  var r4 = [];
+  // ── Filters ──────────────────────────────────────────────────────────────────
+  const r4 = [];
   if (cfg.RSI_MIN !== undefined && cfg.RSI_MAX !== undefined)
     r4.push(row('RSI', cfg.RSI_MIN + ' – ' + cfg.RSI_MAX + ' (period ' + cfg.RSI_PERIOD + ')'));
   if (cfg.ADX_THRESHOLD !== undefined) {
@@ -301,7 +283,8 @@ function renderConfig(cfg) {
   }
   sections.push(section('Filters', r4));
 
-  var r5 = [];
+  // ── Pattern ──────────────────────────────────────────────────────────────────
+  const r5 = [];
   if (cfg.LOW_TOLERANCE_PCT !== undefined)
     r5.push(row('Low tolerance', cfg.LOW_TOLERANCE_PCT + '% (how equal the two lows must be)'));
   if (cfg.STRONG_BODY_RATIO !== undefined)
@@ -316,8 +299,6 @@ function renderConfig(cfg) {
     r5.push(row('C2 body', cfg.REQUIRE_STRONG_C2 ? 'Must be strong (≥60%)' : 'Normal body accepted'));
   if (cfg.DOJI_MAX_BODY_PCT !== undefined)
     r5.push(row('Doji max body', '≤ ' + (cfg.DOJI_MAX_BODY_PCT * 100) + '% of range'));
-  if (cfg.HAMMER_MIN_BODY_PCT !== undefined)
-    r5.push(row('Hammer min body', '≥ ' + (cfg.HAMMER_MIN_BODY_PCT * 100) + '% of range'));
   if (cfg.HAMMER_MAX_BODY_PCT !== undefined)
     r5.push(row('Hammer max body', '≤ ' + (cfg.HAMMER_MAX_BODY_PCT * 100) + '% of range'));
   if (cfg.HAMMER_MIN_LOWER_WICK_PCT !== undefined)
